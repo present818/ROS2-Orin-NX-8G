@@ -20,7 +20,7 @@ export MASTER=/ #robot_1
 export ASR_LANGUAGE=Chinese
 
 # 麦克风类型：WonderEchoPro/xf
-export MIC_TYPE=xf
+export MIC_TYPE=WonderEchoPro
 
 export need_compile=False
 #export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
