@@ -41,9 +41,10 @@ class PreventFallingNode(Node):
 
         self.client = self.create_client(Trigger, '/controller_manager/init_finish')
         self.client.wait_for_service()
-
-        self.controller.set_build_in_pose('DEFAULT_POSE', 1)
+        
         set_servo_position(self.joints_pub, 1, ((19, 500), (20, 700), (21, 85), (22, 150), (23, 500), (24, 700)))
+        self.controller.set_build_in_pose('DEFAULT_POSE', 1)
+
         time.sleep(1)
 
         threading.Thread(target=self.main, daemon=True).start()

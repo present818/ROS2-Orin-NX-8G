@@ -368,8 +368,8 @@ class AutomaticPickNode(Node):
                     yaw = 80
                 else:
                     yaw = 30
-                self.position[2] -= 0.02
-                self.position[1] -= 0.02
+                # self.position[2] -= 0.02
+                # self.position[1] -= 0.02
                 msg = set_pose_target(self.position, yaw, [-180.0, 180.0], 1.0)
                 res = self.send_request(self.set_pose_target_client, msg)
                 if res.pulse:

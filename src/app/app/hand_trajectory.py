@@ -78,7 +78,7 @@ def h_gesture(angle_list):
         gesture_str = "one"
     elif (angle_list[0] > thr_angle_thumb) and (angle_list[1] < thr_angle_s) and (angle_list[2] < thr_angle_s) and (
             angle_list[3] > thr_angle) and (angle_list[4] > thr_angle):
-        gesture_str = "two"
+        gesture_str = "yes"
     elif (angle_list[0] > thr_angle_thumb) and (angle_list[1] < thr_angle_s) and (angle_list[2] < thr_angle_s) and (
             angle_list[3] < thr_angle_s) and (angle_list[4] > thr_angle):
         gesture_str = "three"
@@ -211,7 +211,7 @@ class HandTrajectoryNode(Node):
 
     def image_proc(self):
         points_list = []
-        gesture_list = ['None', 'fist', 'five', 'two', 'rock', 'OK', 'thumbs_up']
+        gesture_list = ['None', 'fist', 'five', 'yes', 'rock', 'OK', 'thumbs_up']
         while self.running:
             try:
                 image = self.image_queue.get(block=True, timeout=1)

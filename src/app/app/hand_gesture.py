@@ -153,7 +153,7 @@ class HandGestureControlNode(Node):
         ACTION = {  'rock' : 'attack',
                     'thumbs_up' : 'twist_l',
                     'OK' : 'wave',
-                    'two' : 'yes'}
+                    'yes' : 'yes'}
         
         LOCK_SERVOS={'19':500, '20':810, '21':180, '22':150,  '23':500,  '24':700}
         while self.act:

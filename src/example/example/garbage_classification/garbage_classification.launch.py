@@ -15,6 +15,8 @@ def launch_setup(context):
     debug_arg = DeclareLaunchArgument('debug', default_value=debug)
     broadcast = LaunchConfiguration('broadcast', default='false')
     broadcast_arg = DeclareLaunchArgument('broadcast', default_value=broadcast)
+    enable_display = LaunchConfiguration('enable_display', default='false')
+    enable_display_arg = DeclareLaunchArgument('enable_display', default_value=enable_display)
     if compiled == 'True':
         peripherals_package_path = get_package_share_directory('peripherals')
         controller_package_path = get_package_share_directory('controller')
@@ -42,12 +44,12 @@ def launch_setup(context):
         }.items(),
     )
 
-    yolov5_node = Node(
+    yolov8_node = Node(
         package='example',
         executable='yolov8_node',
         output='screen',
         parameters=[{'classes': ['BananaPeel','BrokenBones','CigaretteEnd','DisposableChopsticks','Ketchup','Marker','OralLiquidBottle','Plate','PlasticBottle','StorageBattery','Toothbrush', 'Umbrella']},
-                    {'use_depth': False, 'engine': 'garbage_classification_640s.engine', 'lib': 'libmyplugins.so', 'conf': 0.8}]
+                    {'use_depth': False, 'model': 'garbage_classification_640s',  'conf': 0.5, 'display': enable_display}]
     )
 
     garbage_classification_node = Node(
@@ -60,10 +62,11 @@ def launch_setup(context):
     return [start_arg,
             debug_arg,
             broadcast_arg,
+            enable_display_arg,
             depth_camera_launch,
             controller_launch,
             init_pose_launch,
-            yolov5_node,
+            yolov8_node,
             garbage_classification_node,
             ]
 
@@ -79,4 +82,3 @@ if __name__ == '__main__':
     ls = LaunchService()
     ls.include_launch_description(ld)
     ls.run()
-

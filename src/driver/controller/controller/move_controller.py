@@ -191,7 +191,7 @@ class MoveController(Node):
         if file_path == 'stop' :
             self.agc.stop_action_group()
             self.step_controller.set_build_in_pose('DEFAULT_POSE', 1)
-        elif file_path == 'twist' or file_path == 'turn_round' or file_path == 'robot_showtime':
+        elif file_path == 'twist' or file_path == 'turn_round' or file_path == 'dance':
             msg = RunActionSet()
             msg.action_path = file_path
             msg.interrupt = True

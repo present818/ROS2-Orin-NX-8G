@@ -312,8 +312,8 @@ class AutomaticPickNode(Node):
                     yaw = 80
                 else:
                     yaw = 30
-                self.position[2] -= 0.02
-                self.position[1] -= 0.02
+                # self.position[2] -= 0.02
+                # self.position[1] -= 0.02
                 msg = set_pose_target(self.position, yaw, [-180.0, 180.0], 1.0)
                 res = self.send_request(self.set_pose_target_client, msg)
                 self.get_logger().info('pick finish'+str(res.pulse))
@@ -328,6 +328,8 @@ class AutomaticPickNode(Node):
                     time.sleep(1)
                     set_servo_position(self.joints_pub, 2, ((19, 500), (20, 700), (21, 155), (22, 70), (23, 500), (24, 450)))
                     time.sleep(2)
+                else:
+                    self.get_logger().error('Gripping failed')
                 self.pick = False
                 self.set_parameter(self.parameter_client, 'status', 'pick_finish')
                 self.get_logger().info('pick finish')
@@ -476,7 +478,7 @@ class AutomaticPickNode(Node):
                                 self.get_endpoint()
                                 self.get_logger().info('\033[1;32m%s\033[0m' % "self.endpoint"+str(self.endpoint))
                                 self.get_logger().info('\033[1;32m%s\033[0m' % "dist"+str(dist))
-                                self.get_logger().info('\033[1;32m%s\033[0m' % "object_center_y"+str(object_center_x) +str(object_center_y))
+                                self.get_logger().info('\033[1;32m%s\033[0m' % "object_center_y "+str(object_center_x) +str(object_center_y))
 
                                 position = depth_pixel_to_camera((object_center_x, object_center_y), dist, (K[0], K[4], K[2], K[5]))
                                 

@@ -71,6 +71,7 @@ class VoiceControMovelNode(Node):
         threading.Thread(target=self.main, daemon=True).start()
         self.create_service(Trigger, '~/init_finish', self.get_node_state)
         self.play('running')
+
         if self.language == 'Chinese':
             self.get_logger().info('\033[1;32m%s\033[0m' % '准备就绪')
         else:

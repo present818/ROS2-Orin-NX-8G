@@ -8,7 +8,7 @@ import ast
 import cv2
 import time
 import math
-# import torch
+import torch
 import queue
 import rclpy
 import threading
@@ -24,47 +24,47 @@ from std_srvs.srv import Trigger, Empty
 from controller import controller_client 
 from geometry_msgs.msg import Twist, Point
 from interfaces.srv import SetPoint, SetBox
-# from ultralytics.utils.ops import scale_masks 
+from ultralytics.utils.ops import scale_masks 
 from sensor_msgs.msg import Image, CameraInfo
 from servo_controller_msgs.msg import ServosPosition
-# from ultralytics.models.fastsam import FastSAMPredictor
+from ultralytics.models.fastsam import FastSAMPredictor
 from arm_kinematics.kinematics_control import set_pose_target
 from arm_kinematics_msgs.srv import GetRobotPose, SetRobotPose
 from servo_controller.bus_servo_control import set_servo_position
 from servo_controller.action_group_controller import ActionGroupController
 
-# device = 'cuda' if torch.cuda.is_available() else 'cpu'
-# def prompt(results, bboxes=None, points=None, labels=None, texts=None, log=None):
-#     if bboxes is None and points is None and texts is None:
-#         return results
-#     prompt_results = []
-#     if not isinstance(results, list):
-#         results = [results]
-#     for result in results:
-#         if len(result) == 0:
-#             prompt_results.append(result)
-#             continue
-#         masks = result.masks.data
-#         if masks.shape[1:] != result.orig_shape:
-#             masks = scale_masks(masks[None], result.orig_shape)[0]
-#         idx = torch.zeros(len(result), dtype=torch.bool, device=device)
-#         if bboxes is not None:
-#             bboxes = torch.as_tensor(bboxes, dtype=torch.int32, device=device)
-#             bboxes = bboxes[None] if bboxes.ndim == 1 else bboxes
-#             bbox_areas = (bboxes[:, 3] - bboxes[:, 1]) * (bboxes[:, 2] - bboxes[:, 0])
-#             mask_areas = torch.stack([masks[:, b[1] : b[3], b[0] : b[2]].sum(dim=(1, 2)) for b in bboxes])
-#             full_mask_areas = torch.sum(masks, dim=(1, 2))
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+def prompt(results, bboxes=None, points=None, labels=None, texts=None, log=None):
+    if bboxes is None and points is None and texts is None:
+        return results
+    prompt_results = []
+    if not isinstance(results, list):
+        results = [results]
+    for result in results:
+        if len(result) == 0:
+            prompt_results.append(result)
+            continue
+        masks = result.masks.data
+        if masks.shape[1:] != result.orig_shape:
+            masks = scale_masks(masks[None], result.orig_shape)[0]
+        idx = torch.zeros(len(result), dtype=torch.bool, device=device)
+        if bboxes is not None:
+            bboxes = torch.as_tensor(bboxes, dtype=torch.int32, device=device)
+            bboxes = bboxes[None] if bboxes.ndim == 1 else bboxes
+            bbox_areas = (bboxes[:, 3] - bboxes[:, 1]) * (bboxes[:, 2] - bboxes[:, 0])
+            mask_areas = torch.stack([masks[:, b[1] : b[3], b[0] : b[2]].sum(dim=(1, 2)) for b in bboxes])
+            full_mask_areas = torch.sum(masks, dim=(1, 2))
  
-#             u = mask_areas / full_mask_areas  
-#             u = torch.nan_to_num(u, nan=0.0) 
-#             indices = (u >= (torch.max(u) - 0.1)).nonzero(as_tuple=True)[1] 
-#             u1 = full_mask_areas / bbox_areas
-#             max_index = indices[torch.argmax(u1[indices])]
-#             idx[max_index] = True
+            u = mask_areas / full_mask_areas  
+            u = torch.nan_to_num(u, nan=0.0) 
+            indices = (u >= (torch.max(u) - 0.1)).nonzero(as_tuple=True)[1] 
+            u1 = full_mask_areas / bbox_areas
+            max_index = indices[torch.argmax(u1[indices])]
+            idx[max_index] = True
 
-#         prompt_results.append(result[idx])
+        prompt_results.append(result[idx])
 
-#     return prompt_results
+    return prompt_results
 
 def depth_pixel_to_camera(pixel_coords, depth, intrinsics):
     fx, fy, cx, cy = intrinsics
@@ -155,10 +155,10 @@ class AutomaticPickNode(Node):
         cv2.namedWindow(self.image_name, 1)
         cv2.setMouseCallback(self.image_name, self.onmouse)
 
-        # code_path = os.path.abspath(os.path.split(os.path.realpath(__file__))[0])
-        # overrides = dict(conf=0.4, task="segment", mode="predict", model=os.path.join(os.path.dirname(code_path), 'resources/models', "FastSAM-x.pt"), save=False, imgsz=640)
-        # self.predictor = FastSAMPredictor(overrides=overrides)
-        # self.predictor(np.zeros((640, 400, 3), dtype=np.uint8))
+        code_path = os.path.abspath(os.path.split(os.path.realpath(__file__))[0])
+        overrides = dict(conf=0.4, task="segment", mode="predict", model=os.path.join(os.path.dirname(code_path), 'resources/models', "FastSAM-x.pt"), save=False, imgsz=640)
+        self.predictor = FastSAMPredictor(overrides=overrides)
+        self.predictor(np.zeros((640, 400, 3), dtype=np.uint8))
         self.language = os.environ['ASR_LANGUAGE']
         self.controller = controller_client.ControllerClient()
 
@@ -395,41 +395,43 @@ class AutomaticPickNode(Node):
 
         return center_x, center_y, angle
 
-    # def segment_handle(self, image, box, factor):
-    #     everything_results = self.predictor(image)
-    #     results = prompt(everything_results, bboxes=[box])
-    #     # annotated_frame = results[0].plot()
-    #     mask = results[0].masks
-    #     mask = mask.data  # 通常是 torch.Tensor
-    #     if not isinstance(mask, np.ndarray):
-    #         mask = mask.cpu().numpy()
-    #     if mask.ndim == 3 and mask.shape[0] == 1:  # 可能是 (1, H, W) 需要去掉第一维
-    #         mask = mask[0]
+    def segment_handle(self, image, box, factor):
+        everything_results = self.predictor(image)
+        results = prompt(everything_results, bboxes=[box])
+        # annotated_frame = results[0].plot()
+        mask = results[0].masks
+        mask = mask.data  # 通常是 torch.Tensor
+        if not isinstance(mask, np.ndarray):
+            mask = mask.cpu().numpy()
+        if mask.ndim == 3 and mask.shape[0] == 1:  # 可能是 (1, H, W) 需要去掉第一维
+            mask = mask[0]
         
-    #     mask = (mask * 255).astype(np.uint8)
+        mask = (mask * 255).astype(np.uint8)
+        # print(mask)
+        # cv2.imshow('mask', mask)
+        # cv2.rectangle(image, (box[0], box[1]), (box[2], box[3]), (255, 0, 0), 2, 1)
+        contours = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)[-2]
+        areaMaxContour, area_max = common.get_area_max_contour(contours, 10)
+        center_x, center_y, angle = -1, -1, -1
+        if areaMaxContour is not None:
+            if 10 < area_max:
+                rect = cv2.minAreaRect(areaMaxContour)  # 获取最小外接矩形(obtain the minimum bounding rectangle)
+                #4.5版本定义为，x轴顺时针旋转最先重合的边为w，angle为x轴顺时针旋转的角度，angle取值为(0,90]
+                angle = rect[2]
+                box = np.intp(cv2.boxPoints(rect))  # 最小外接矩形的四个顶点(the four corner points of the minimum bounding rectangle)
 
-    #     contours = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)[-2]
-    #     areaMaxContour, area_max = common.get_area_max_contour(contours, 10)
-    #     center_x, center_y, angle = -1, -1, -1
-    #     if areaMaxContour is not None:
-    #         if 10 < area_max:
-    #             rect = cv2.minAreaRect(areaMaxContour)  # 获取最小外接矩形(obtain the minimum bounding rectangle)
-    #             #4.5版本定义为，x轴顺时针旋转最先重合的边为w，angle为x轴顺时针旋转的角度，angle取值为(0,90]
-    #             angle = rect[2]
-    #             box = np.intp(cv2.boxPoints(rect))  # 最小外接矩形的四个顶点(the four corner points of the minimum bounding rectangle)
-
-    #             cv2.drawContours(image, [box], -1, (0, 255, 255), 2)  # 画出四个点组成的矩形(draw the rectangle composed of the four points)
-    #             # 获取矩形的对角点(obtain the diagonal points of the rectangle)
-    #             ptime_start_x, ptime_start_y = box[0, 0], box[0, 1]
-    #             pt3_x, pt3_y = box[2, 0], box[2, 1]
-    #             radius = abs(ptime_start_x - pt3_x)
-    #             center_x, center_y = int((ptime_start_x + pt3_x) / 2), int((ptime_start_y + pt3_y) / 2)  # 中心点(center point)
-    #             center_y = int(center_y - rect[1][1] / 2 + rect[1][1] * factor)
-    #             cv2.circle(image, (center_x, center_y), 5, (0, 255, 255), -1)  # 画出中心点(draw the center point)
-    #             h, w = image.shape[:2]
-    #             center_x /= w
-    #             center_y /= h
-    #     return float(center_x), float(center_y)
+                cv2.drawContours(image, [box], -1, (0, 255, 255), 2)  # 画出四个点组成的矩形(draw the rectangle composed of the four points)
+                # 获取矩形的对角点(obtain the diagonal points of the rectangle)
+                ptime_start_x, ptime_start_y = box[0, 0], box[0, 1]
+                pt3_x, pt3_y = box[2, 0], box[2, 1]
+                radius = abs(ptime_start_x - pt3_x)
+                center_x, center_y = int((ptime_start_x + pt3_x) / 2), int((ptime_start_y + pt3_y) / 2)  # 中心点(center point)
+                center_y = int(center_y - rect[1][1] / 2 + rect[1][1] * factor)
+                cv2.circle(image, (center_x, center_y), 5, (0, 255, 255), -1)  # 画出中心点(draw the center point)
+                h, w = image.shape[:2]
+                center_x /= w
+                center_y /= h
+        return float(center_x), float(center_y)
 
     def action_thread(self):
         while True:
@@ -443,7 +445,8 @@ class AutomaticPickNode(Node):
                     yaw = 80
                 else:
                     yaw = 30
-
+                # self.position[2] -= 0.02
+                # self.position[1] -= 0.02
                 msg = set_pose_target(self.position, yaw, [-180.0, 180.0], 1.0)
                 res = self.send_request(self.set_pose_target_client, msg)
                 self.get_logger().info('pick finish'+str(res.pulse))
@@ -737,22 +740,27 @@ class AutomaticPickNode(Node):
                     self.box = self.track_window
                     self.get_logger().info('\033[1;32m%s\033[0m' % '333333box: ' + str(self.box))
             if self.box:
-                # 1. 计算框选区域的中心点
-                box_center_x = (self.box[0] + self.box[2]) / 2
-                box_center_y = (self.box[1] + self.box[3]) / 2
-                
-                # 2. 将像素坐标转换为归一化的Point消息
-                h, w = result_image.shape[:2]
-                point = Point()
-                point.x = box_center_x / w
-                point.y = box_center_y / h
-                
-                # 3. 使用框的中心点来初始化颜色拾取器 
-                self.color_picker = ColorPicker(point, 10) 
-                
-                # 4. 清空box，表示框选任务已完成 
-                self.box = []
-              
+                # if self.display_box:
+                    # if time.time() - self.start_time > 5:
+                        # self.display_box = False
+                    # cv2.rectangle(result_image, (self.box[0], self.box[1]),
+                                  # (self.box[2], self.box[3]), (0, 255, 255), 2)
+
+                # else:
+                if self.start_pick:
+                    point = Point()
+                    point.x, point.y = self.segment_handle(result_image, self.box, 1 / 4)
+                    # self.get_logger().info(f'222222222222 {point.x} {point.y}')
+                    # cv2.circle(result_image, (int(point.x*result_image.shape[1]), int(point.y*result_image.shape[0])), 5, (0, 0, 255), -1)
+                    # cv2.imshow('result_image', result_image)
+                    # cv2.waitKey(5000)
+                    self.color_picker = ColorPicker(point, 10)
+                    self.box = []
+                elif self.start_place:
+                    point = Point()
+                    point.x, point.y = self.segment_handle(result_image, self.box, 3 / 4)
+                    self.color_picker = ColorPicker(point, 10)
+                    self.box = []
                 
             if self.color_picker is not None:  # 拾取器存在(color pick exists)
                 target_color, result_image = self.color_picker(image, result_image)

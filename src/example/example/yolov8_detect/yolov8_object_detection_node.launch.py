@@ -10,6 +10,8 @@ def launch_setup(context):
     compiled = os.environ['need_compile']
     start = LaunchConfiguration('start', default='true')
     start_arg = DeclareLaunchArgument('start', default_value=start)
+    enable_display = LaunchConfiguration('enable_display', default='true')
+    enable_display_arg = DeclareLaunchArgument('enable_display', default_value=enable_display)
     if compiled == 'True':
         peripherals_package_path = get_package_share_directory('peripherals')
 
@@ -26,12 +28,13 @@ def launch_setup(context):
         executable='yolov8_node',
         output='screen',
         parameters=[{'classes': ['BananaPeel','BrokenBones','CigaretteEnd','DisposableChopsticks','Ketchup','Marker','OralLiquidBottle','PlasticBottle','Plate','StorageBattery','Toothbrush', 'Umbrella']},
-                    {'engine': 'garbage_classification_640s.engine', 'lib': 'libmyplugins.so', 'conf': 0.5},
+                    {'device': 'cpu', 'model': 'garbage_classification_640s','conf': 0.8},
                     {'start': start},
-                    {'disaplay': 'true'},]
+                    {'display': enable_display},]
     )
 
     return [start_arg,
+            enable_display_arg,
             depth_camera_launch,
             yolov8_node,
             ]

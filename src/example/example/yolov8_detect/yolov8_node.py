@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 #coding=utf8
-# YOLOv8 OBBè¯†åˆ«èŠ‚ç‚¹
+# YOLOv8 ptÊ¶±ğ½Úµã
 
-import os
 import cv2
+import os
 import time
 import math
 import queue
@@ -15,11 +15,12 @@ import numpy as np
 import sdk.fps as fps
 from sdk import common
 from rclpy.node import Node
+from ultralytics import YOLO
 from cv_bridge import CvBridge
 from std_srvs.srv import Trigger
 from sensor_msgs.msg import Image
 from interfaces.msg import ObjectInfo, ObjectsInfo
-from example.yolov8_detect.yolov8_trt import YoLov8TRT,plot_one_box
+from example.yolov8_detect.yolov8_trt import plot_one_box
 
 MODE_PATH = os.path.split(os.path.realpath(__file__))[0]
 class Colors:
@@ -45,14 +46,13 @@ class Yolov8Node(Node):
         rclpy.init()
         super().__init__(name, allow_undeclared_parameters=True, automatically_declare_parameters_from_overrides=True)
         self.name = name
-        # self.image_sub = None
         self.start = False
-        # self.bgr_image = None
         self.running = True
 
+        self.display = self.get_parameter('display').value
         self.start_time = time.time()
         self.frame_count = 0
-        # self.fps = fps.FPS()  # fpsè®¡ç®—å™¨
+        self.fps = fps.FPS()  # fps¼ÆËãÆ÷
 
 
         self.bridge = CvBridge()
@@ -60,20 +60,15 @@ class Yolov8Node(Node):
 
         signal.signal(signal.SIGINT, self.shutdown)
 
-        lib = self.get_parameter('lib').value
-        engine = self.get_parameter('engine').value
-        self.conf = self.get_parameter('conf').value
+        device = self.get_parameter('device').value
+        model_path = MODE_PATH + "/"+ self.get_parameter('model').value + ".pt"
+        self.yolov8 = YOLO(model_path)
         self.classes = self.get_parameter('classes').value
-        self.disaplay = self.get_parameter('disaplay').value
-        
-        ctypes.CDLL(os.path.join(MODE_PATH, lib))
-        self.yolov8_wrapper = YoLov8TRT(os.path.join(MODE_PATH, engine))
-        
-        self.create_service(Trigger, '/yolov8/start', self.start_srv_callback)  # è¿›å…¥ç©æ³•
-        self.create_service(Trigger, '/yolov8/stop', self.stop_srv_callback)  # é€€å‡ºç©æ³•
+   
+        self.create_service(Trigger, 'yolov8/start', self.start_srv_callback)  # ½øÈëÍæ·¨
+        self.create_service(Trigger, 'yolov8/stop', self.stop_srv_callback)  # ÍË³öÍæ·¨
 
-        self.image_sub = self.create_subscription(Image, '/depth_cam/rgb/image_raw', self.image_callback, 1)
-        # self.image_sub = self.create_subscription(Image, '/camera/color/image_raw', self.image_callback, 1)
+        self.image_sub = self.create_subscription(Image, 'depth_cam/rgb/image_raw', self.image_callback, 1)
 
         self.object_pub = self.create_publisher(ObjectsInfo, '~/object_detect', 1)
         self.result_image_pub = self.create_publisher(Image, '~/object_image', 1)
@@ -117,9 +112,9 @@ class Yolov8Node(Node):
         cv_image = self.bridge.imgmsg_to_cv2(ros_image, "bgr8")
         bgr_image = np.array(cv_image, dtype=np.uint8)
         if self.image_queue.full():
-            # å¦‚æœé˜Ÿåˆ—å·²æ»¡ï¼Œä¸¢å¼ƒæœ€æ—§çš„å›¾åƒ
+            # Èç¹û¶ÓÁĞÒÑÂú£¬¶ªÆú×î¾ÉµÄÍ¼Ïñ
             self.image_queue.get()
-            # å°†å›¾åƒæ”¾å…¥é˜Ÿåˆ—
+            # ½«Í¼Ïñ·ÅÈë¶ÓÁĞ
         self.image_queue.put(bgr_image)
    
     def shutdown(self, signum, frame):
@@ -140,46 +135,52 @@ class Yolov8Node(Node):
                 if self.start:
                     objects_info = []
                     h, w = result_image.shape[:2]
-                    boxes, scores, classid = self.yolov8_wrapper.infer(result_image, self.conf)
-                    for box, cls_conf, cls_id in zip(boxes, scores, classid):
-                        box[1] = box[1] - 40 # ç”±äºä½¿ç”¨çš„åƒåœ¾åˆ†ç±»æ¨¡å‹æ˜¯640X480ï¼Œè€Œç›¸æœºåˆ†è¾¨ç‡ä¸º640X400ï¼Œæ‰€ä»¥è·å–çš„ä¸­å¿ƒåæ ‡éœ€è¦å¾€ä¸Šåç§»40ä¸ªåƒç´ ç‚¹
-                        color = colors(cls_id, True)
-                        angle_in_degrees = int(math.degrees(box[4]))
-                        plot_one_box(
+                    
+                    detect_result = self.yolov8(result_image, imgsz=320,verbose=False) 
+                    for result in detect_result:               
+                        obb = result.obb
+                        
+                        if obb is not None:
+                            boxes = obb.xywhr.numpy()
+                            scores = obb.conf.numpy()
+                            classid = obb.cls.numpy()   
+                           
+                            for box, cls_conf, cls_id in zip(boxes, scores, classid):
+                                color = colors(cls_id, True)
+                                cls_id = int(cls_id.item()) 
+                                angle_in_degrees = int(math.degrees(box[4])) 
+                                plot_one_box(
                                         box,
                                         result_image,
                                         label="{}:{:.2f}".format(self.classes[cls_id], cls_conf),
                                         color=color,
                                         line_thickness=3,
                                         rotated=True)
-                        object_info = ObjectInfo()
-                        object_info.class_name = self.classes[cls_id]
-                        object_info.box = box.astype(int).tolist()
-                        object_info.width = w
-                        object_info.height = h
-                        object_info.score = float(cls_conf)
-                        object_info.angle = angle_in_degrees
-                        objects_info.append(object_info)  
+                                object_info = ObjectInfo()
+                                object_info.class_name = self.classes[cls_id]
+                                object_info.box = box.astype(int).tolist()
+                                object_info.width = w
+                                object_info.height = h
+                                object_info.score = float(cls_conf)
+                                object_info.angle = angle_in_degrees
+                                # self.get_logger().info('angle: ' + str(angle_in_degrees))
+                                objects_info.append(object_info) 
 
                     object_msg = ObjectsInfo()
                     object_msg.objects = objects_info
                     self.object_pub.publish(object_msg)
-
+                    if self.display: 
+                        cv2.imshow("result",result_image)
+                        cv2.waitKey(1)
             except BaseException as e:
                 print(e)
+               
 
-            # self.fps.update()
-            # result_image = self.fps.show_fps(result_image)
             self.result_image_pub.publish(self.bridge.cv2_to_imgmsg(result_image, "bgr8"))
-
-            if result_image is not None and self.disaplay:
-                cv2.imshow("image", result_image)
-                cv2.waitKey(1)
-                    
         else:
             time.sleep(0.01)
 
-        self.yolov8_wrapper.destroy() 
+        #self.yolov8_wrapper.destroy() 
         rclpy.shutdown()
 
 
@@ -191,3 +192,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

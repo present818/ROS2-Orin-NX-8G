@@ -85,7 +85,7 @@ class KcfTrackNode(Node):
         while self.running:
             rgb_image = self.image_queue.get()
             result_image = np.copy(rgb_image)
-            factor = 8
+            factor = 1
             rgb_image = cv2.resize(rgb_image, (int(result_image.shape[1]/ factor), int(result_image.shape[0]/ factor)))
 
             if self.tracker is None:
@@ -93,7 +93,7 @@ class KcfTrackNode(Node):
                     roi = cv2.selectROI("result", result_image, False)
                     roi =  tuple(int(i / factor)for i in roi)
 
-                    if roi:
+                    if roi[2] > 0 and roi[3] > 0:
                         param = cv2.TrackerKCF.Params()
                         param.detect_thresh = 0.2
                         self.tracker = cv2.TrackerKCF_create(param)
