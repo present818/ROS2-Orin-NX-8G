@@ -55,6 +55,7 @@ class JoystickController(Node):
         self.force_stopped = False
         self.set_parameters = False
         self.slam = self.get_parameter('slam').value
+        self.rtabmap = self.get_parameter('rtabmap').value
 
         self.joints_pub = self.create_publisher(ServosPosition, '/servo_controller', 1)
         self.joy_sub = self.create_subscription(Joy, 'ros_robot_controller/joy', self.joy_callback, 1)
@@ -404,11 +405,16 @@ class JoystickController(Node):
                 repeat = 1
                 if self.slam:
                     self.controller.traveling(gait=-1, time=1, steps=0)
+                    if self.rtabmap:
+                        bus_servo_control.set_servo_position(self.joints_pub, 1.0, ((19, 500), (20, 810), (21, 180), (22, 150), (23, 500), (24, 500)))
+                    else:
+                        bus_servo_control.set_servo_position(self.joints_pub, 1.0, ((19, 500), (20, 720), (21, 130), (22, 150), (23, 500), (24, 500)))
                 else:
                     self.controller.traveling(gait=-2, time=1, steps=0)
+                    bus_servo_control.set_servo_position(self.joints_pub, 1.0, ((19, 500), (20, 720), (21, 130), (22, 150), (23, 500), (24, 500)))
+
 
                 self.buzzer_warn(repeat)
-                bus_servo_control.set_servo_position(self.joints_pub, 1.0, ((19, 500), (20, 720), (21, 130), (22, 150), (23, 500), (24, 500)))
                 self.force_stopped = True
 
 

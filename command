@@ -140,7 +140,7 @@ ros2 launch navigation rviz_rtabmap_navigation.launch.py
 
 #######opencv#######
 #颜色识别
-ros2 launch example color_detect_node.launch.py
+ros2 launch example color_recognition_node.launch.py
 
 #AprilTag标签识别
 ros2 launch example apriltag_recognition.launch.py
@@ -271,5 +271,5 @@ ros2 launch large_models_examples vllm_navigation.launch.py map:=map_01
 #夹取/放置校准
 ros2 launch large_models_examples automatic_pick.launch.py debug:=pick/debug:=place
 
-#将地面上的方块放到盒子里，然后回来
+#将红色方块放到对应颜色的盒子里
 ros2 launch large_models_examples vllm_navigation_transport.launch.py map:=map_01

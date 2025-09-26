@@ -12,10 +12,12 @@ def launch_setup(context):
     sim = LaunchConfiguration('sim', default='false').perform(context)
     master_name = LaunchConfiguration('master_name', default=os.environ['MASTER']).perform(context)
     robot_name = LaunchConfiguration('robot_name', default=os.environ['HOST']).perform(context)
+    rtabmap_name = LaunchConfiguration('rtabmap_name', default='true').perform(context)
 
     sim_arg = DeclareLaunchArgument('sim', default_value=sim)
     master_name_arg = DeclareLaunchArgument('master_name', default_value=master_name)
     robot_name_arg = DeclareLaunchArgument('robot_name', default_value=robot_name)
+    rtabmap_name_arg = DeclareLaunchArgument('rtabmap_name', default_value=rtabmap_name)
 
     frame_prefix = '' if robot_name == '/' else '%s/'%robot_name
     topic_prefix = '' if robot_name == '/' else '/%s'%robot_name
@@ -41,7 +43,9 @@ def launch_setup(context):
             'sim': sim,
             'master_name': master_name,
             'robot_name': robot_name,
+            'rtabmap_name': rtabmap_name,
             'action_name': 'init_horizontal',
+            
         }.items(),
     )
 
@@ -64,7 +68,7 @@ def launch_setup(context):
       ]
     )
 
-    return [sim_arg, master_name_arg, robot_name_arg, bringup_launch]
+    return [sim_arg, master_name_arg, robot_name_arg, rtabmap_name_arg, bringup_launch]
 
 def generate_launch_description():
     return LaunchDescription([

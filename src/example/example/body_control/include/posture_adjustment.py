@@ -12,29 +12,29 @@ from controller import step_controller
 class PostureAdjustment(Node):
     def __init__(self):
         super().__init__('posture_adjustment')
-        self.controller = step_controller.StepController()
+        self.step_controller = step_controller.StepController()
         self.client = self.create_client(Trigger, '/controller_manager/init_finish')
         self.client.wait_for_service()
 
-        self.controller.set_build_in_pose('DEFAULT_POSE', 1)
+        self.step_controller.set_build_in_pose('DEFAULT_POSE', 1)
         time.sleep(1)
 
     def transform(self):
-        self.controller.transform_pose_euler((0, 0, 0), 'xyz', (-15, 0, 0), 1) # 旋转
+        self.step_controller.transform_pose_euler((0, 0, 0), 'xyz', (-15, 0, 0), 1) # 旋转
         time.sleep(1)
-        self.controller.transform_pose_euler((0, 0, 0), 'xyz', (0, 15, 0), 1) # 旋转
+        self.step_controller.transform_pose_euler((0, 0, 0), 'xyz', (0, 15, 0), 1) # 旋转
         time.sleep(1)
-        self.controller.transform_pose_euler((0, 0, 0), 'yxz', (-15, 15, 0), 2) #欧拉角注意顺序
+        self.step_controller.transform_pose_euler((0, 0, 0), 'yxz', (-15, 15, 0), 2) #欧拉角注意顺序
         time.sleep(2)
-        self.controller.transform_pose_euler((40, 0, 0), 'xyz', (0, 0, 0), 1) # 平移， 单位为 mm
+        self.step_controller.transform_pose_euler((40, 0, 0), 'xyz', (0, 0, 0), 1) # 平移， 单位为 mm
         time.sleep(1)
-        self.controller.transform_pose_euler((0, 40, 0), 'xyz', (0, 0, 0), 1) # 平移， 单位为 mm
+        self.step_controller.transform_pose_euler((0, 40, 0), 'xyz', (0, 0, 0), 1) # 平移， 单位为 mm
         time.sleep(1)
-        self.controller.transform_pose_euler((-40, -40, 0), 'xyz', (0, 0, 0), 2) # 平移， 单位为 mm
+        self.step_controller.transform_pose_euler((-40, -40, 0), 'xyz', (0, 0, 0), 2) # 平移， 单位为 mm
         time.sleep(1)
 
     def reset(self):
-        self.controller.set_build_in_pose('DEFAULT_POSE', 1)
+        self.step_controller.set_build_in_pose('DEFAULT_POSE', 1)
         time.sleep(1)
 
 def main(args=None):

@@ -12,25 +12,25 @@ from controller import step_controller
 class HeightAdjustment(Node):
     def __init__(self):
         super().__init__('height_adjustment')
-        self.controller = step_controller.StepController()
+        self.step_controller = step_controller.StepController()
         self.client = self.create_client(Trigger, '/controller_manager/init_finish')
         self.client.wait_for_service()
 
-        self.controller.set_build_in_pose('DEFAULT_POSE', 1)
+        self.step_controller.set_build_in_pose('DEFAULT_POSE', 1)
         time.sleep(1)
-        self.controller.set_step_mode(1, 40, 15, 0, 0, 0.8, repeat=0) # 直行
+        self.step_controller.set_step_mode(1, 40, 15, 0, 0, 0.8, repeat=0) # 直行
 
     def transform(self):
         for _ in range(10):
             for i in range(20):
-                self.controller.transform_pose_euler((0, 0, 3), 'xyz', (0,0,0), 0.1) # 升高机体
+                self.step_controller.transform_pose_euler((0, 0, 3), 'xyz', (0,0,0), 0.1) # 升高机体
                 time.sleep(0.1)
             for i in range(20):
-                self.controller.transform_pose_euler((0, 0, -3), 'xyz', (0,0,0), 0.1) # 降低机体
+                self.step_controller.transform_pose_euler((0, 0, -3), 'xyz', (0,0,0), 0.1) # 降低机体
                 time.sleep(0.1)
 
     def reset(self):
-        self.controller.set_build_in_pose('DEFAULT_POSE', 1)
+        self.step_controller.set_build_in_pose('DEFAULT_POSE', 1)
         time.sleep(1)
 
 def main(args=None):

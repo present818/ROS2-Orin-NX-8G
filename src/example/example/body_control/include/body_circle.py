@@ -14,11 +14,11 @@ from controller import step_controller, build_in_pose
 class BodyCircle(Node):
     def __init__(self):
         super().__init__('body_circle')
-        self.controller = step_controller.StepController()
+        self.step_controller = step_controller.StepController()
         self.client = self.create_client(Trigger, '/controller_manager/init_finish')
         self.client.wait_for_service()
 
-        self.controller.set_build_in_pose('DEFAULT_POSE_M', 1)
+        self.step_controller.set_build_in_pose('DEFAULT_POSE_M', 1)
         time.sleep(1)
 
     def gen_circle(self, r):
@@ -39,19 +39,19 @@ class BodyCircle(Node):
         """
         机体扭动
         """
-        self.controller.set_pose_base(build_in_pose.DEFAULT_POSE_M, 0.8)
+        self.step_controller.set_pose_base(build_in_pose.DEFAULT_POSE_M, 0.8)
         org_pose = tuple(build_in_pose.DEFAULT_POSE_M)
         time.sleep(0.8)
         for i in range(10, 40, +3):
             points = self.gen_circle(i)
             for x, y in points:
                 pose = kinematics_calculate.transform_euler(org_pose, (x, y, 0), 'xyz', (0, 0, 0), degrees=False)
-                self.controller.set_pose_base(pose, 0.02)
+                self.step_controller.set_pose_base(pose, 0.02)
                 time.sleep(0.02)
 
 
     def reset(self):
-        self.controller.set_build_in_pose('DEFAULT_POSE_M', 1)
+        self.step_controller.set_build_in_pose('DEFAULT_POSE_M', 1)
         time.sleep(1)
 
 def main(args=None):

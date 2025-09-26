@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # encoding: utf-8
-# 三角步态控制
+# 机体直行和转弯
 
 import time
 import rclpy
@@ -20,7 +20,7 @@ class ForwardAndRorate(Node):
         gait=1,              # 步态类型，0为停止运动、1为三角步态、2为波纹步态
         stride=40.0,         # 步幅（mm），默认40mm，范围 0~65
         height=15.0,         # 步高（mm），默认15mm， 范围 0~50
-        direction=180,         # 移动方向（角度），范围 0°~360°，0°为前进，逆时针方向递增
+        direction=0,         # 移动方向（角度），范围 0°~360°，0°为前进，逆时针方向递增
         rotation=0.0,        # 旋转角度，默认不旋转， 正数为逆时针旋转，负数为顺时针旋转z
         time=1,              # 单步用时（秒），默认1秒
         steps=0,             # 步数，0表示持续运动
@@ -60,7 +60,9 @@ def main(args=None):
     node.move(gait=1)   #直行
     node.get_logger().info('\033[1;32m%s\033[0m' % 'forward')
     time.sleep(5)  # 等待 5 秒
-    node.move(gait=1, rotation=0.5)  # 转弯
+    node.move(gait=0) # 停止 
+    time.sleep(1)  # 等待 1 秒
+    node.move(gait=1, rotation=1.0)  # 转弯
     node.get_logger().info('\033[1;32m%s\033[0m' % 'rorate')
     time.sleep(5)  # 等待 5 秒
     node.move(gait=0) # 停止 

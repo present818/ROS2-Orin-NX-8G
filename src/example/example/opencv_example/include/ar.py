@@ -12,7 +12,7 @@ from app.common import Heart
 from apriltag import apriltag
 from cv_bridge import CvBridge
 from std_srvs.srv import Trigger
-from app.obj_loader import OBJ as obj_load
+from example.opencv_example.include.obj_loader import OBJ as obj_load
 from sensor_msgs.msg import CameraInfo, Image
 from scipy.spatial.transform import Rotation as R
 

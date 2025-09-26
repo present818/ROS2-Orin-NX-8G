@@ -38,7 +38,7 @@ def launch_setup(context):
         launch_arguments={
             'sim': sim,
             'master_name': master_name,
-            'robot_name': robot_name
+            'robot_name': robot_name,
         }.items(),
     )
 

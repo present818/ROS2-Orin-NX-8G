@@ -8,6 +8,8 @@ def generate_launch_description():
     init_arg = DeclareLaunchArgument('init', default_value=init)
     slam = LaunchConfiguration('slam', default='false')
     slam_arg = DeclareLaunchArgument('slam', default_value=slam)
+    rtabmap = LaunchConfiguration('rtabmap', default= 'true')
+    rtabmap_arg = DeclareLaunchArgument('rtabmap', default_value=rtabmap)
     max_linear = LaunchConfiguration('max_linear', default='0.04')
     max_angular = LaunchConfiguration('max_angular', default='0.3')
     max_linear_arg = DeclareLaunchArgument('max_linear', default_value=max_linear)
@@ -19,13 +21,14 @@ def generate_launch_description():
         package='peripherals',
         executable='joystick_control',
         output='screen',
-        parameters=[{'init': init, 'slam': slam}],
+        parameters=[{'init': init, 'slam': slam, 'rtabmap': rtabmap}],
         remappings=[('controller/cmd_vel', remap_cmd_vel)]
     )
 
     return LaunchDescription([
         init_arg,
         slam_arg,
+        rtabmap_arg,
         remap_cmd_vel_arg,
         joystick_control_node
     ])

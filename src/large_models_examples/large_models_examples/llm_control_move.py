@@ -49,7 +49,7 @@ if os.environ["ASR_LANGUAGE"] == 'Chinese':
 输入：向前走两步，然后顺时针旋转 
 输出：{"action": [[0.0, 0.0, 2], [0.0, -0.2, 4]], "response": "向前走两步，然后顺时针旋转，出发！"}
 输入：向前走两步，向左平移两步，然后逆时针旋转
-输出：{"action": [[0.0, 0.0, 2], [-1.57, 0.0, 2], [0.0, 0.2, 4]], "response": "好嘞"}
+输出：{"action": [[0.0, 0.0, 2], [1.57, 0.0, 2], [0.0, 0.2, 4]], "response": "好嘞"}
     '''
 else:
     PROMPT = '''
@@ -80,7 +80,7 @@ Number of moving steps: step
 Input: Take two steps forward and then rotate clockwise
 Output: {"action": [0.0, 0.0, 2], [0.0, -0.2, 4]], "response": "Take two steps forward, then rotate clockwise, start! "}
 Input: Take two steps forward, move two steps left, and then rotate counterclockwise
-Output: {"action": [0.0, 0.0, 2], [-1.57, 0.0, 2], [0.0, 0.2, 4], "response": "Okay"}
+Output: {"action": [0.0, 0.0, 2], [1.57, 0.0, 2], [0.0, 0.2, 4], "response": "Okay"}
     '''
 
 class LLMControlMove(Node):

@@ -69,6 +69,8 @@ class MoveController(Node):
         self.create_subscription(RunActionSet, '~/run_actionset', self.run_actionset_callback, 1)
         # 机器人姿态设置服务
         self.create_service(SetPose1, '~/set_pose_1', self.set_pose1_callback, callback_group=timer_cb_group)
+        
+        self.perfrom_actions_pub = self.create_publisher(RunActionSet, '/perform_actions/actions', 1)
 
         if self.get_parameter('odom_enable').value:
             self.create_timer(0.02, self.odometry_publish)
@@ -186,7 +188,16 @@ class MoveController(Node):
 
     def run_actionset_callback(self, msg: RunActionSet):
         file_path = msg.action_path 
-        self.agc.run_action(file_path)
+        if file_path == 'stop' :
+            self.agc.stop_action_group()
+            self.step_controller.set_build_in_pose('DEFAULT_POSE', 1)
+        elif file_path == 'twist' or file_path == 'turn_round' or file_path == 'robot_showtime':
+            msg = RunActionSet()
+            msg.action_path = file_path
+            msg.interrupt = True
+            self.perfrom_actions_pub.publish(msg)
+        else:
+            self.agc.start_action_thread(file_path)
 
     # 定时发布任务 
     def odometry_publish(self):

@@ -491,16 +491,3 @@ class StepController(Node):
             with self.lock:
                 generator.send(None)
                 self.new_moving_generator = generator
-
-
-
-def main():
-    rclpy.init()
-    node = StepController()
-    executor = MultiThreadedExecutor()
-    executor.add_node(node)
-    executor.spin()
-    node.destroy_node()
-
-if __name__ == '__main__':
-    main()

@@ -29,6 +29,8 @@ setup(
             'hand_trajectory = app.hand_trajectory:main',
             'hand_gesture = app.hand_gesture:main',
             'self_balancing = app.self_balancing:main',
+            'perform_actions = app.perform_actions:main'
+
         ],
     },
 )

@@ -31,7 +31,7 @@ class SelfBalancing(Node):
         self.running = False
         self.imu_queue = queue.Queue(maxsize=2)
 
-        self.controller = step_controller.StepController()
+        self.step_controller = step_controller.StepController()
         self.client = self.create_client(Trigger, '/controller_manager/init_finish')
         self.client.wait_for_service()
         self.create_subscription(Imu, '/imu', self.imu_callback, 1)
@@ -66,7 +66,7 @@ class SelfBalancing(Node):
 
     def enter_srv_callback(self, request, response):
         self.get_logger().info('\033[1;32m%s\033[0m' % "self balancing enter")
-        self.controller.set_build_in_pose('DEFAULT_POSE', 1)
+        self.step_controller.set_build_in_pose('DEFAULT_POSE', 1)
         set_servo_position(self.joints_pub, 1, ((24, 500), (23, 500), (22, 150), (21, 130), (20, 720), (19, 500)))
 
         response.success = True
@@ -75,7 +75,7 @@ class SelfBalancing(Node):
 
     def exit_srv_callback(self, request, response):
         self.get_logger().info('\033[1;32m%s\033[0m' % "self balancingl exit")
-        self.controller.set_build_in_pose('DEFAULT_POSE', 1)
+        self.step_controller.set_build_in_pose('DEFAULT_POSE', 1)
         self.running = False
 
         response.success = True
@@ -105,8 +105,6 @@ class SelfBalancing(Node):
         while rclpy.ok():
             if self.running:
                 try:
-
-
                     imu = self.imu_queue.get(block=True, timeout=1)
                     q = imu.orientation
                     r = R.from_quat((q.x, q.y, q.z, q.w))
@@ -120,7 +118,7 @@ class SelfBalancing(Node):
                     self.pid_pitch.update(y)
                     self.pid_roll.update(x)
                     new_pose = kinematics_calculate.transform_euler(build_in_pose.DEFAULT_POSE, (0, 0, 0), 'xyz', (self.pid_pitch.output*10, self.pid_roll.output*10, 0), degrees=False)
-                    self.controller.set_pose_base(new_pose, 0.02)
+                    self.step_controller.set_pose_base(new_pose, 0.02)
                 except Exception as e:
                     self.get_logger().error(str(e))
                     self.pitch = 0

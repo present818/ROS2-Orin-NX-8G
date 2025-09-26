@@ -6,12 +6,10 @@ import time
 import rclpy
 from rclpy.node import Node
 from std_srvs.srv import Trigger
-from controller import step_controller
 
 class BodyIk(Node):
     def __init__(self):
         super().__init__('body_ik')
-        self.controller = step_controller.StepController()
         self.client = self.create_client(Trigger, '/controller_manager/init_finish')
         self.client.wait_for_service()
 

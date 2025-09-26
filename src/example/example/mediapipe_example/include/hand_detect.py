@@ -12,7 +12,7 @@ from cv_bridge import CvBridge
 from sensor_msgs.msg import Image
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
-from mediapipe_visual import draw_hand_landmarks_on_image
+from example.mediapipe_example.include.mediapipe_visual import draw_hand_landmarks_on_image
 
 class HandNode(Node):
     def __init__(self, name):

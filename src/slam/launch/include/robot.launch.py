@@ -17,6 +17,7 @@ def launch_setup(context):
     robot_name = LaunchConfiguration('robot_name', default='/').perform(context)
     depth_camera_name = LaunchConfiguration('depth_camera_name', default='depth_cam').perform(context)
     action_name = LaunchConfiguration('action_name', default='slam').perform(context)
+    rtabmap_name = LaunchConfiguration('rtabmap_name', default='false').perform(context)
 
     sim_arg = DeclareLaunchArgument('sim', default_value=sim)
     master_name_arg = DeclareLaunchArgument('master_name', default_value=master_name)
@@ -25,6 +26,7 @@ def launch_setup(context):
     use_joy_arg = DeclareLaunchArgument('use_joy', default_value=use_joy)
     use_depth_camera_arg = DeclareLaunchArgument('use_depth_camera', default_value=use_depth_camera)
     action_name_arg = DeclareLaunchArgument('action_name', default_value=action_name)
+    rtabmap_name_arg = DeclareLaunchArgument('rtabmap_name', default_value=rtabmap_name)
 
     max_linear_sim = '0.02'
     max_linear = '0.03'
@@ -94,7 +96,8 @@ def launch_setup(context):
             'max_linear': max_linear_sim if sim == 'true' else max_linear,  
             'max_angular': max_angular_sim if sim == 'true' else max_angular,
             'remap_cmd_vel': cmd_vel_topic,
-            'slam': 'true'
+            'slam': 'true',
+            'rtabmap': rtabmap_name,
             
         }.items(),
         condition=IfCondition(use_joy)
@@ -141,6 +144,7 @@ def launch_setup(context):
             use_joy_arg,
             use_depth_camera_arg,
             action_name_arg,
+            rtabmap_name_arg,
             bringup_launch,
             rf2o_laser_odometry,
             ]

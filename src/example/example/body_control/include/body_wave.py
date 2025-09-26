@@ -14,11 +14,11 @@ from controller import step_controller, build_in_pose
 class BodyWave(Node):
     def __init__(self):
         super().__init__('body_wave')
-        self.controller = step_controller.StepController()
+        self.step_controller = step_controller.StepController()
         self.client = self.create_client(Trigger, '/controller_manager/init_finish')
         self.client.wait_for_service()
 
-        self.controller.set_build_in_pose('DEFAULT_POSE_M', 1)
+        self.step_controller.set_build_in_pose('DEFAULT_POSE_M', 1)
         time.sleep(1)
 
     def wave(self):
@@ -29,7 +29,7 @@ class BodyWave(Node):
         org_pose = tuple(build_in_pose.DEFAULT_POSE_M)
         time.sleep(0.8)
         # 逐渐加快并加大摇摆幅度
-        for j in range(7, 20, 2):
+        for j in range(7, 16, 2):
             i = 90 
             j = min(15, j)
             while i <= 360 + 85:
@@ -41,7 +41,7 @@ class BodyWave(Node):
                 x = math.sin(math.radians(i)) * (0.018 * (j + ((i - 90) / 360) * 2))
                 y = math.cos(math.radians(i)) * (0.018 * (j + ((i - 90) / 360) * 2))
                 pose = kinematics_calculate.transform_euler(org_pose, (0, 0, 0), 'xy', (x, y), degrees=False)
-                self.controller.set_pose_base(pose, t)
+                self.step_controller.set_pose_base(pose, t)
                 time.sleep(t)
 
         # 逐渐放慢和减小摇摆幅度
@@ -53,11 +53,11 @@ class BodyWave(Node):
                 x = math.sin(math.radians(k)) * (0.018 * (j + (1 - (i - 90) / 360) * -3))
                 y = math.cos(math.radians(k)) * (0.018 * (j + (1 - (i - 90) / 360) * -3))
                 pose = kinematics_calculate.transform_euler(org_pose, (0, 0, 0), 'xy', (x, y), degrees=False)
-                self.controller.set_pose_base(pose, duration)
+                self.step_controller.set_pose_base(pose, duration)
                 time.sleep(duration)
 
     def reset(self):
-        self.controller.set_build_in_pose('DEFAULT_POSE_M', 1)
+        self.step_controller.set_build_in_pose('DEFAULT_POSE_M', 1)
         time.sleep(1)
 
 def main(args=None):

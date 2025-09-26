@@ -1,6 +1,7 @@
 import os
 from ament_index_python.packages import get_package_share_directory
 
+from launch_ros.actions import Node
 from launch import LaunchDescription, LaunchService
 from launch.actions import IncludeLaunchDescription, OpaqueFunction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -37,8 +38,14 @@ def launch_setup(context):
             os.path.join(app_package_path, 'launch/hand_gesture.launch.py')),
     )
 
+    perform_actions_node = Node(
+        package='app',
+        executable='perform_actions',
+        output='screen',
+    )
 
     return [
+            perform_actions_node,
             lidar_node_launch,
             line_following_node_launch,
             hand_gesture_node_launch,
