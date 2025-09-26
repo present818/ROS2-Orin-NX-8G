@@ -31,6 +31,6 @@ source /opt/ros/humble/local_setup.zsh
 source $working_space/ros2_ws/install/local_setup.zsh
 source $working_space/third_party_ros2/third_party_ws/install/local_setup.zsh
 source $working_space/third_party_ros2/aurora_ws/install/local_setup.zsh
-source $working_space/third_party_ros2/orbbec_ws/install/local_setup.zsh
-source $working_space/third_party_ros2/gridmap_ws/install/local_setup.zsh
+#source $working_space/third_party_ros2/orbbec_ws/install/local_setup.zsh
+#source $working_space/third_party_ros2/gridmap_ws/install/local_setup.zsh
 source $working_space/third_party_ros2/rtabmap_ws/install/local_setup.zsh
