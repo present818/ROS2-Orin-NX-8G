@@ -125,7 +125,7 @@ class PreventFallingNode(Node):
                     data = {'/**': {'ros__parameters': {'plane_distance': {}}}}
                     data['/**']['ros__parameters']['plane_distance'] = self.plane_high
                     common.save_yaml_data(data, os.path.join(
-                        os.path.abspath(os.path.join(os.path.split(os.path.realpath(__file__))[0], '../..')),
+                        os.path.abspath(os.path.join(os.path.split(os.path.realpath(__file__))[0], '../../..')),
                         'config/plane_distance.yaml'))
                     self.debug = False
             else:

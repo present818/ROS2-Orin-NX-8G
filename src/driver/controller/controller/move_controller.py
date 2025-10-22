@@ -188,13 +188,16 @@ class MoveController(Node):
 
     def run_actionset_callback(self, msg: RunActionSet):
         file_path = msg.action_path 
+        
+        msg = RunActionSet()
+        msg.action_path = file_path
+        msg.interrupt = True
+
         if file_path == 'stop' :
             self.agc.stop_action_group()
+            self.perfrom_actions_pub.publish(msg)
             self.step_controller.set_build_in_pose('DEFAULT_POSE', 1)
-        elif file_path == 'twist' or file_path == 'turn_round' or file_path == 'dance':
-            msg = RunActionSet()
-            msg.action_path = file_path
-            msg.interrupt = True
+        elif file_path == 'twist' or file_path == 'dance_1' or file_path == 'dance_2':
             self.perfrom_actions_pub.publish(msg)
         else:
             self.agc.start_action_thread(file_path)

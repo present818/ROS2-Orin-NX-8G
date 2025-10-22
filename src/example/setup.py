@@ -47,7 +47,8 @@ setup(
 
             'garbage_classification = example.garbage_classification.garbage_classification:main',
             'yolov8_node = example.yolov8_detect.yolov8_node:main',
-            
+            'yolov11_node = example.yolov11_detect.yolov11_node:main',
+
             'color_track = example.color_track.color_track_node:main',
             'automatic_pick = example.navigation_transport.automatic_pick:main',
             'navigation_transport = example.navigation_transport.navigation_transport:main',

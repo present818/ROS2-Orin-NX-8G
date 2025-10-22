@@ -2,13 +2,17 @@
 # encoding: utf-8
 
 # 智能踢球
+import cv2
 import time
+import queue
 import rclpy
 import signal
 import threading
+import numpy as np
 import sdk.pid as pid
 from rclpy.node import Node
 from std_srvs.srv import Trigger
+from sensor_msgs.msg import Image
 from geometry_msgs.msg import Twist
 from arm_kinematics import transform
 from arm_kinematics_msgs.srv import SetRobotPose
@@ -35,10 +39,13 @@ class IntelligentKickNode(Node):
         self.name = name
         self.x_direction = 1
         self.y_direction = 1
+        self.x_stop = 320
+        self.y_stop = 350
         self.pid_x = pid.PID(0.02, 0.0, 0.000001)
         self.pid_y = pid.PID(0.035, 0.0001, 0.000001)
         self.pid_X = pid.PID(0.02, 0.0, 0.000001)
         self.pid_Y = pid.PID(0.035, 0.0001, 0.000001)
+        self.image_queue = queue.Queue(maxsize=2)
         signal.signal(signal.SIGINT, self.shutdown)
         self.step_controller = step_controller.StepController()
         self.controller = controller_client.ControllerClient()
@@ -46,7 +53,7 @@ class IntelligentKickNode(Node):
 
         self.joints_pub = self.create_publisher(ServosPosition, '/servo_controller', 1) # 舵机控制(servo control)
         self.cmd_vel_pub = self.create_publisher(Twist, '/controller/cmd_vel', 1)  # 底盘控制(chassis control)
-
+        self.image_sub = self.create_subscription(Image, '/color_detect/image_result', self.image_callback , 1)
         self.create_subscription(ColorsInfo, '/color_detect/color_info', self.get_color_callback, 1)
 
         timer_cb_group = ReentrantCallbackGroup()
@@ -94,7 +101,7 @@ class IntelligentKickNode(Node):
         self.running = False
 
     def init_action(self):
-        # self.step_controller.set_build_in_pose('DEFAULT_POSE', 1)
+        self.step_controller.set_build_in_pose('DEFAULT_POSE', 1)
         set_servo_position(self.joints_pub, 1, ((24, 700), (23, 500), (22, 150), (21, 100), (20, 665), (19, 500)))
         time.sleep(1)
 
@@ -120,6 +127,16 @@ class IntelligentKickNode(Node):
         response.message = "set_color"
         return response
 
+    def image_callback(self, ros_image):
+        rgb_image = np.ndarray(shape=(ros_image.height, ros_image.width, 3), dtype=np.uint8,
+                               buffer=ros_image.data)  # 原始 RGB 画面(original RGB image)
+
+        if self.image_queue.full():
+            # 如果队列已满，丢弃最旧的图像(if the queue is full, discard the oldest image)
+            self.image_queue.get()
+            # 将图像放入队列(put the image into the queue)
+        self.image_queue.put(rgb_image)
+
 
     def get_color_callback(self, msg):
         if msg.data != []:
@@ -143,6 +160,13 @@ class IntelligentKickNode(Node):
     def main(self):
         while self.running:
             twist = Twist()
+            try:
+                image = self.image_queue.get(block=True, timeout=1)
+            except queue.Empty:
+                if not self.running:
+                    break
+                else:
+                    continue
             if self.start:
                 if self.center is not None:
                     t1 = time.time()
@@ -221,7 +245,9 @@ class IntelligentKickNode(Node):
                     # 设置舵机位置
                     set_servo_position(self.joints_pub, 0.2, ((19, int(self.y_dis)), (22, int(self.x_dis))))
                     time.sleep(0.2)
-
+            
+            cv2.circle(image, (self.x_stop, self.y_stop), 10, (0, 0, 0), -1)
+            cv2.imshow('image', image)
         self.init_action()
         rclpy.shutdown()
 

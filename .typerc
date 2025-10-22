@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 当期版本
-export VERSION="|V1.1.0|App_ROS2_1.0|2025-09-26|"
+export VERSION="|V1.1.0|App_ROS2_1.0|2025-10-22|"
 
 # 雷达类型：/LD19
 export LIDAR_TYPE=LD19

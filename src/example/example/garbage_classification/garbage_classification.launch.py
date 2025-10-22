@@ -44,12 +44,12 @@ def launch_setup(context):
         }.items(),
     )
 
-    yolov8_node = Node(
+    yolov11_node = Node(
         package='example',
-        executable='yolov8_node',
+        executable='yolov11_node',
         output='screen',
-        parameters=[{'classes': ['BananaPeel','BrokenBones','CigaretteEnd','DisposableChopsticks','Ketchup','Marker','OralLiquidBottle','Plate','PlasticBottle','StorageBattery','Toothbrush', 'Umbrella']},
-                    {'use_depth': False, 'model': 'garbage_classification_640s',  'conf': 0.5, 'display': enable_display}]
+        parameters=[{'task': 'obb', 'engine': 'best_garbage_yolo11s.engine', 'conf': 0.7, 'disaplay': enable_display},
+        {'classes': ['BananaPeel','BrokenBones','CigaretteEnd','DisposableChopsticks','Ketchup','Marker','OralLiquidBottle','PlasticBottle','Plate','StorageBattery','Toothbrush', 'Umbrella']},]
     )
 
     garbage_classification_node = Node(
@@ -66,7 +66,7 @@ def launch_setup(context):
             depth_camera_launch,
             controller_launch,
             init_pose_launch,
-            yolov8_node,
+            yolov11_node,
             garbage_classification_node,
             ]
 

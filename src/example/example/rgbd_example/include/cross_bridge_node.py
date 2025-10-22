@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
+#!/usr/bin/env python3
 # encoding: utf-8
-# @data:2023/12/18
-# @author:aiden
 # 过独木桥(cross bridge)
 
 import os
@@ -24,6 +23,11 @@ from sensor_msgs.msg import Image, CameraInfo
 from servo_controller_msgs.msg import ServosPosition
 from servo_controller.bus_servo_control import set_servo_position
 
+import matplotlib.pyplot as plt
+class State(enum.Enum):
+    NORMAL = 0
+    CROOSS_BRIDGE = 1
+
 class CrossBridgeNode(Node):
     def __init__(self, name):
         rclpy.init()
@@ -32,32 +36,32 @@ class CrossBridgeNode(Node):
         signal.signal(signal.SIGINT, self.shutdown)
         self.running = True
         self.turn = False
+        self.K = None
+        self.D = None
+        self.current_pose = 'DEFAULT_POSE'
         self.plane_high = self.get_parameter('plane_distance').value
         self.debug = self.get_parameter('debug').value
         self.twist = Twist()
         self.image_queue = queue.Queue(maxsize=2)
-        self.left_roi = [290, 300, 165, 175]
-        self.center_roi = [290, 300, 315, 325]
-        self.right_roi = [290, 300, 465, 475]
+        self.left_roi_1 = [245, 255, 115, 125]
+        self.left_roi = [245, 255, 185, 195]
+        self.center_roi = [245, 255, 315, 325]
+        self.right_roi = [245, 255, 445, 455]
+        self.right_roi_1 = [245, 255, 515, 525]
         self.controller = step_controller.StepController()
         self.debug = self.get_parameter('debug').value
         self.joints_pub = self.create_publisher(ServosPosition, '/servo_controller', 1) # 舵机控制(servo control)
         self.cmd_vel_pub = self.create_publisher(Twist, '/controller/cmd_vel', 1)  # 底盘控制(chassis control)
-        self.create_subscription(Image, '/depth_cam/depth/image_raw', self.depth_callback, 1)
-        # self.client = self.create_client(SetBool, '/depth_cam/set_ldp_enable')
-        # self.client.wait_for_service()
-        # msg = SetBool.Request()
-        # msg.data = False
-        # future = self.client.call_async(msg)
-        # rclpy.spin_until_future_complete(self, future)
+        self.cmd_param_pub = self.create_publisher(CmdParam, '/step_controller/cmd_param', 1) # 行走姿态控制  
+        self.image_sub = self.create_subscription(Image, '/depth_cam/depth/image_raw', self.depth_callback, 1)
+        self.camera_info_sub = self.create_subscription(CameraInfo, '/depth_cam/rgb/camera_info', self.camera_info_callback, 1)
+
+
         self.client = self.create_client(Trigger, '/controller_manager/init_finish')
         self.client.wait_for_service()
 
-        # self.cmd_vel_pub.publish(Twist())
-        # set_servo_position(self.joints_pub, 1, ((1, 500), (2, 700), (3, 85), (4, 150), (5, 500), (10, 200)))
-        # time.sleep(1)
         self.controller.set_build_in_pose('DEFAULT_POSE', 1)
-        set_servo_position(self.joints_pub, 1, ((19, 500), (20, 700), (21, 85), (22, 150), (23, 500), (24, 700)))
+        set_servo_position(self.joints_pub, 1, ((19, 500), (20, 727), (21, 80), (22, 160), (23, 500), (24, 700)))
         time.sleep(1)
 
         threading.Thread(target=self.main, daemon=True).start()
@@ -77,6 +81,10 @@ class CrossBridgeNode(Node):
         # 将图像放入队列(put the image into the queue)
         self.image_queue.put(depth_image)
 
+    def camera_info_callback(self, msg):
+        self.K = msg.k
+        self.D = msg.d
+
     def shutdown(self, signum, frame):
         self.running = False
         self.get_logger().info('\033[1;32m%s\033[0m' % "shutdown")
@@ -89,7 +97,29 @@ class CrossBridgeNode(Node):
             distance = 0
         return distance
 
-    def move_policy(self, left_distance, center_distance, right_distance):
+    def move_policy(self, left_distance, left_distance_1, center_distance, right_distance, right_distance_1):
+        if abs(left_distance_1 - self.plane_high) > 0.04 and abs(right_distance_1 - self.plane_high) > 0.04 :
+            self.twist.linear.x = 0.02
+            desired_pose = 'NARROW_POSE'
+            desired_height = 5
+        else :
+            self.twist.linear.x = 0.0
+            desired_pose  = 'DEFAULT_POSE'
+            desired_height = 20        
+        
+        if desired_pose != self.current_pose:
+            # 只有在需要改变姿态时才发送指令 (Only send a command when a pose change is needed)            
+            cmd_param = CmdParam()
+            cmd_param.gait = 1
+            cmd_param.period = 1.0
+            cmd_param.pose = desired_pose
+            cmd_param.height = desired_height
+            self.cmd_param_pub.publish(cmd_param)
+            
+            # 更新当前姿态状态 (Update the current pose state)
+            self.current_pose = desired_pose
+
+
         if abs(left_distance - self.plane_high) > 0.04:
             if abs(center_distance - self.plane_high) > 0.04:
                 self.twist.angular.z = -0.2
@@ -104,9 +134,7 @@ class CrossBridgeNode(Node):
             self.twist.angular.z = 0.0
         if abs(left_distance - self.plane_high) > 0.04 and abs(right_distance - self.plane_high) > 0.04 and abs(center_distance - self.plane_high) > 0.04:
             self.twist = Twist()
-            #self.running = False
-        else:
-            self.twist.linear.x = 0.02
+        # self.get_logger().info('\033[1;32m%s\033[0m' % str(self.twist))
 
         self.cmd_vel_pub.publish(self.twist)
 
@@ -125,37 +153,59 @@ class CrossBridgeNode(Node):
                 cv2.circle(depth_color_map, (int((self.left_roi[2] + self.left_roi[3]) / 2), int((self.left_roi[0] + self.left_roi[1]) / 2)), 10, (0, 0, 0), -1)
                 cv2.circle(depth_color_map, (int((self.center_roi[2] + self.center_roi[3]) / 2), int((self.center_roi[0] + self.center_roi[1]) / 2)), 10, (0, 0, 0), -1)
                 cv2.circle(depth_color_map, (int((self.right_roi[2] + self.right_roi[3]) / 2), int((self.right_roi[0] + self.right_roi[1]) / 2)), 10, (0, 0, 0), -1)
+                cv2.circle(depth_color_map, (int((self.left_roi_1[2] + self.left_roi_1[3]) / 2), int((self.left_roi_1[0] + self.left_roi_1[1]) / 2)), 10, (0, 0, 0), -1)
+                cv2.circle(depth_color_map, (int((self.right_roi_1[2] + self.right_roi_1[3]) / 2), int((self.right_roi_1[0] + self.right_roi_1[1]) / 2)), 10, (0, 0, 0), -1)
+
                 left_distance = self.get_roi_distance(depth_image, self.left_roi)
                 center_distance = self.get_roi_distance(depth_image, self.center_roi)
                 right_distance = self.get_roi_distance(depth_image, self.right_roi)
+                left_distance_1 = self.get_roi_distance(depth_image, self.left_roi_1)
+                right_distance_1 = self.get_roi_distance(depth_image, self.right_roi_1)
+
                 count += 1
-                self.get_logger().info(str([left_distance, center_distance, right_distance]))
+                self.get_logger().info(str([left_distance_1, left_distance, center_distance, right_distance, right_distance_1]))
+                # self.get_logger().info(str([left_distance, center_distance, right_distance]))
                 if count > 50 and not math.isnan(center_distance):
                     count = 0
                     self.plane_high = center_distance
                     data = {'/**': {'ros__parameters': {'plane_distance': {}}}}
                     data['/**']['ros__parameters']['plane_distance'] = self.plane_high
                     common.save_yaml_data(data, os.path.join(
-                        os.path.abspath(os.path.join(os.path.split(os.path.realpath(__file__))[0], '../..')),
+                        os.path.abspath(os.path.join(os.path.split(os.path.realpath(__file__))[0], '../../..')),
                         'config/bridge_plane_distance.yaml'))
                     self.debug = False
             else:
-                left_roi = [self.left_roi[0], self.left_roi[1], self.left_roi[2] - 80, self.left_roi[3] - 80] 
-                right_roi = [self.right_roi[0], self.right_roi[1], self.right_roi[2] + 80, self.right_roi[3] + 80] 
+                left_roi_1 = [self.left_roi_1[0] - 50, self.left_roi_1[1] - 50, self.left_roi_1[2] - 60, self.left_roi_1[3] - 60] 
+                left_roi = [self.left_roi[0] - 50, self.left_roi[1] - 50, self.left_roi[2] - 30, self.left_roi[3] - 30] 
+                center_roi = [self.center_roi[0] - 50, self.center_roi[1] - 50, self.center_roi[2], self.center_roi[3]] 
+                right_roi = [self.right_roi[0] - 50, self.right_roi[1] - 50, self.right_roi[2] + 30, self.right_roi[3] + 30] 
+                right_roi_1 = [self.right_roi_1[0] - 50, self.right_roi_1[1] - 50, self.right_roi_1[2] + 60, self.right_roi_1[3] + 60] 
+                cv2.circle(depth_color_map, (int((left_roi_1[2] + left_roi_1[3]) / 2), int((left_roi_1[0] + left_roi_1[1]) / 2)), 10, (0, 0, 0), -1)
                 cv2.circle(depth_color_map, (int((left_roi[2] + left_roi[3]) / 2), int((left_roi[0] + left_roi[1]) / 2)), 10, (0, 0, 0), -1)
-                cv2.circle(depth_color_map, (int((self.center_roi[2] + self.center_roi[3]) / 2), int((self.center_roi[0] + self.center_roi[1]) / 2)), 10, (0, 0, 0), -1)
                 cv2.circle(depth_color_map, (int((right_roi[2] + right_roi[3]) / 2), int((right_roi[0] + right_roi[1]) / 2)), 10, (0, 0, 0), -1)
+                cv2.circle(depth_color_map, (int((center_roi[2] + center_roi[3]) / 2), int((center_roi[0] + center_roi[1]) / 2)), 10, (0, 0, 0), -1)
+                cv2.circle(depth_color_map, (int((right_roi_1[2] + right_roi_1[3]) / 2), int((right_roi_1[0] + right_roi_1[1]) / 2)), 10, (0, 0, 0), -1)
+
                 left_distance = self.get_roi_distance(depth_image, left_roi)
                 center_distance = self.get_roi_distance(depth_image, self.center_roi)
                 right_distance = self.get_roi_distance(depth_image, right_roi)
-                self.get_logger().info(str([left_distance, center_distance, right_distance]))
+                left_distance_1 = self.get_roi_distance(depth_image, left_roi_1)
+                right_distance_1 = self.get_roi_distance(depth_image, right_roi_1)
+              
+                self.get_logger().info(str([left_distance_1, left_distance, center_distance, right_distance, right_distance_1]))
+
+             
                 if math.isnan(left_distance):
                     left_distance = 0
+                if math.isnan(left_distance_1):
+                    left_distance_1 = 0
                 if math.isnan(center_distance):
                     center_distance = 0
                 if math.isnan(right_distance):
                     right_distance = 0
-                self.move_policy(left_distance, center_distance, right_distance)
+                if math.isnan(right_distance_1):
+                    right_distance_1 = 0
+                self.move_policy(left_distance, left_distance_1, center_distance, right_distance, right_distance_1)
 
             cv2.imshow('depth_color_map', depth_color_map)
             k = cv2.waitKey(1) & 0xFF

@@ -51,12 +51,12 @@ class GarbageClassificationNode(Node):
         timer_cb_group = ReentrantCallbackGroup()
         self.create_service(Trigger, '~/start', self.start_srv_callback, callback_group=timer_cb_group)  # 进入玩法(enter the game)
         self.create_service(Trigger, '~/stop', self.stop_srv_callback, callback_group=timer_cb_group)  # 退出玩法(exit the game)
-        self.create_subscription(Image, '/yolov8/object_image', self.image_callback, 1)
-        self.create_subscription(ObjectsInfo, '/yolov8/object_detect', self.get_object_callback, 1)
-        self.start_yolov8_client = self.create_client(Trigger, '/yolov8/start', callback_group=timer_cb_group)
-        self.start_yolov8_client.wait_for_service()
-        self.stop_yolov8_client = self.create_client(Trigger, '/yolov8/stop', callback_group=timer_cb_group)
-        self.stop_yolov8_client.wait_for_service()
+        self.create_subscription(Image, '/yolo/object_image', self.image_callback, 1)
+        self.create_subscription(ObjectsInfo, '/yolo/object_detect', self.get_object_callback, 1)
+        self.start_yolo_client = self.create_client(Trigger, '/yolo/start', callback_group=timer_cb_group)
+        self.start_yolo_client.wait_for_service()
+        self.stop_yolo_client = self.create_client(Trigger, '/yolo/stop', callback_group=timer_cb_group)
+        self.stop_yolo_client.wait_for_service()
 
         self.debug = self.get_parameter('debug').value
         self.broadcast = self.get_parameter('broadcast').value
@@ -99,14 +99,14 @@ class GarbageClassificationNode(Node):
     def start_srv_callback(self, request, response):
         self.get_logger().info('\033[1;32m%s\033[0m' % "start garbage classification")
 
-        self.send_request(self.start_yolov8_client, Trigger.Request())
+        self.send_request(self.start_yolo_client, Trigger.Request())
         response.success = True
         response.message = "start"
         return response
 
     def stop_srv_callback(self, request, response):
         self.get_logger().info('\033[1;32m%s\033[0m' % "stop garbage classification")
-        self.send_request(self.stop_yolov8_client, Trigger.Request())
+        self.send_request(self.stop_yolo_client, Trigger.Request())
         response.success = True
         response.message = "stop"
         return response

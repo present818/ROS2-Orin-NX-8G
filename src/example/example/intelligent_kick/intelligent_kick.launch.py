@@ -13,8 +13,8 @@ def launch_setup(context):
     start_arg = DeclareLaunchArgument('start', default_value=start)
     debug = LaunchConfiguration('debug', default='false')
     debug_arg = DeclareLaunchArgument('debug', default_value=debug)
-    enable_display = LaunchConfiguration('enable_display', default='true')
-    enable_display_arg = DeclareLaunchArgument('enable_display', default_value=enable_display)
+    # enable_display = LaunchConfiguration('enable_display', default='true')
+    # enable_display_arg = DeclareLaunchArgument('enable_display', default_value=enable_display)
     broadcast = LaunchConfiguration('broadcast', default='false')
     broadcast_arg = DeclareLaunchArgument('broadcast', default_value=broadcast)
     if compiled == 'True':
@@ -26,9 +26,9 @@ def launch_setup(context):
     color_detect_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(example_package_path, 'example/opencv_example/color_detect_node.launch.py')),
-        launch_arguments={
-                'enable_display': enable_display,
-        }.items(),
+        # launch_arguments={
+        #         'enable_display': enable_display,
+        # }.items(),
     )
     controller_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -43,7 +43,7 @@ def launch_setup(context):
     )
 
     return [start_arg,
-            enable_display_arg,
+            # enable_display_arg,
             controller_launch,
             color_detect_launch,
             intelligent_kick_node,
