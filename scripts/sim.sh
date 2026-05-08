@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PKG_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 WS_ROOT="$(cd "${PKG_DIR}/../../.." && pwd)"
 
-WORLD_NAME="${WORLD_NAME:-empty}"
+WORLD_NAME="${WORLD_NAME:-robocup_home}"
 GUI_MODE="${GUI_MODE:-false}"
 MACHINE_TYPE_VALUE="${MACHINE_TYPE_VALUE:-ROSOrin_Mecanum}"
 RVIZ_CONFIG="${RVIZ_CONFIG:-${PKG_DIR}/rviz/nav_nav2.rviz}"
