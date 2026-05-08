@@ -8,6 +8,7 @@
   <license>TODO: License declaration</license>
 
   <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
   <depend>urdf</depend>
   <depend>xacro</depend>
   <depend>rviz2</depend>

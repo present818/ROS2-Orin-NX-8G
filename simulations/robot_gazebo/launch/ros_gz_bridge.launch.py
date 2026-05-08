@@ -38,7 +38,6 @@ def launch_setup(context):
                 '/joint_states@sensor_msgs/msg/JointState[gz.msgs.Model',
                 # Lidar (Gazebo -> ROS2)
                 '/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan',
-                '/scan/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked',
                 # IMU (Gazebo -> ROS2)
                 '/imu@sensor_msgs/msg/Imu[gz.msgs.IMU',
                 # Camera (Gazebo -> ROS2)
@@ -47,6 +46,16 @@ def launch_setup(context):
                 ],
         remappings=remappings_default,
         output='screen'
+    )
+
+    scan_to_pointcloud = Node(
+        package='robot_gazebo',
+        executable='scan_to_pointcloud',
+        output='screen',
+        parameters=[{
+            'input_topic': '/scan',
+            'output_topic': '/scan/points',
+        }],
     )
 
 
@@ -60,6 +69,7 @@ def launch_setup(context):
         nav_arg,
         publish_static_map_to_odom_arg,
         bridge,
+        scan_to_pointcloud,
     ]
     if publish_static_map_to_odom == 'true':
         actions.append(map_static_tf)

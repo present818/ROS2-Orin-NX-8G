@@ -49,6 +49,7 @@ setup(
     entry_points={
         'console_scripts': [
             'teleop_key_control = robot_gazebo.teleop_key_control:main',
+            'scan_to_pointcloud = robot_gazebo.scan_to_pointcloud:main',
         ],
     },
 )
