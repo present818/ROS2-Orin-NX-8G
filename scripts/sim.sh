@@ -92,6 +92,10 @@ SIM_MODE="nav"
 if [[ "${SLAM_MODE}" == "true" ]]; then
   SIM_MODE="slam"
 fi
+NAV_BRIDGE_MODE="true"
+if [[ "${SIM_MODE}" == "slam" ]]; then
+  NAV_BRIDGE_MODE="false"
+fi
 
 NAV_LAUNCH_FILE="${WS_ROOT}/install/robot_gazebo/share/robot_gazebo/launch/include/navigation.launch.py"
 SLAM_LAUNCH_FILE="${WS_ROOT}/install/robot_gazebo/share/robot_gazebo/launch/include/slam.launch.py"
@@ -109,6 +113,7 @@ fi
 ros2 launch robot_gazebo worlds.launch.py \
   world_name:="${WORLD_NAME}" \
   gui:="${GUI_MODE}" \
+  nav:="${NAV_BRIDGE_MODE}" \
   machine_type:="${MACHINE_TYPE}" &
 GAZEBO_PID=$!
 

@@ -10,6 +10,12 @@ def launch_setup(context):
 
     nav = LaunchConfiguration('nav', default='false').perform(context)
     nav_arg = DeclareLaunchArgument('nav',default_value=nav)
+    publish_static_map_to_odom = LaunchConfiguration(
+        'publish_static_map_to_odom',
+        default='false').perform(context)
+    publish_static_map_to_odom_arg = DeclareLaunchArgument(
+        'publish_static_map_to_odom',
+        default_value=publish_static_map_to_odom)
 
     remappings_default = [("/odom/tf", "tf")]
     if nav == 'true':
@@ -49,10 +55,16 @@ def launch_setup(context):
                         name='static_transform_publisher',
                         output='screen',
                         arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'map', 'odom'])
-    return [
+    actions = [
         use_sim_time_arg,
+        nav_arg,
+        publish_static_map_to_odom_arg,
         bridge,
-        map_static_tf
+    ]
+    if publish_static_map_to_odom == 'true':
+        actions.append(map_static_tf)
+    return [
+        *actions
     ]
 
 

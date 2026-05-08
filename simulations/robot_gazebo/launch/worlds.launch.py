@@ -52,6 +52,7 @@ def launch_setup(context):
             ),
         launch_arguments={
             'use_sim_time': use_sim_time,
+            'nav': nav,
         }.items(),
     )
 

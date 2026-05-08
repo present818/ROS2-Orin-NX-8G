@@ -67,10 +67,9 @@ bt_navigator:
     # nav2_bt_navigator/navigate_to_pose_w_replanning_and_recovery.xml
     # nav2_bt_navigator/navigate_through_poses_w_replanning_and_recovery.xml
     # They can be set here or via a RewrittenYaml remap from a parent launch file to Nav2.
-    # Jazzy loads built-in BT plugins automatically. Keep this empty unless
-    # adding custom plugins, otherwise actions such as ComputePathToPose are
-    # registered twice.
-    plugin_lib_names: []
+    # Jazzy loads built-in BT plugins automatically. Do not set
+    # plugin_lib_names here unless adding custom plugins; an empty list is
+    # passed as an unset parameter by launch rewriting and crashes bt_navigator.
 
 bt_navigator_navigate_through_poses_rclcpp_node:
   ros__parameters:
