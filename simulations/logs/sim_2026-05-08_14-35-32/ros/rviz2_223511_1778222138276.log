@@ -1,0 +1,8 @@
+[INFO] [1778222138.572849262] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1778222138.572934089] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[INFO] [1778222138.605205203] [rviz2]: Stereo is NOT SUPPORTED
+[WARN] [1778222138.682021171] [rcl.logging_rosout]: Publisher already registered for node name: 'rviz2'. If this is due to multiple nodes with the same name then all logs for the logger named 'rviz2' will go out over the existing publisher. As soon as any node with that name is destructed it will unregister the publisher, preventing any further logs for that name from being published on the rosout topic.
+[WARN] [1778222138.689895136] [rcl.logging_rosout]: Publisher already registered for node name: 'rviz2'. If this is due to multiple nodes with the same name then all logs for the logger named 'rviz2' will go out over the existing publisher. As soon as any node with that name is destructed it will unregister the publisher, preventing any further logs for that name from being published on the rosout topic.
+[INFO] [1778222139.013527982] [rviz2]: Trying to create a map of size 203 x 163 using 1 swatches
+[INFO] [1778222140.702263304] [rviz2]: Waiting for the slam_toolbox node configuration.
+[INFO] [1778222145.703573632] [rviz2]: Waiting for the slam_toolbox node configuration.

@@ -1,0 +1,206 @@
+Log dir: /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-35-32
+Log file: /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-35-32/terminal.log
+ROS setup: /opt/ros/jazzy/setup.bash
+Workspace: /home/abc/Orin_src
+World: robocup_home
+Sim mode: nav
+Gazebo GUI: false
+Machine type: ROSOrin_Mecanum
+ROS log dir: /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-35-32/ros
+Map file: /home/abc/Orin_src/install/robot_gazebo/share/robot_gazebo/maps/map_01.yaml
+[INFO] [launch]: All log files can be found below /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-35-32/ros/2026-05-08-14-35-33-026743-abc-Legion-Y9000P-IRX9-223282
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gazebo-1]: process started with pid [223291]
+[INFO] [joint_state_publisher-2]: process started with pid [223292]
+[INFO] [robot_state_publisher-3]: process started with pid [223294]
+[INFO] [create-4]: process started with pid [223295]
+[INFO] [parameter_bridge-5]: process started with pid [223296]
+[INFO] [static_transform_publisher-6]: process started with pid [223297]
+[static_transform_publisher-6] [WARN] [1778222133.340286006] []: Old-style arguments are deprecated; see --help for new-style arguments
+[create-4] [INFO] [1778222133.350899535] [ros_gz_sim]: Requesting list of world names.
+[static_transform_publisher-6] [INFO] [1778222133.355000630] [static_transform_publisher]: Spinning until stopped - publishing transform
+[static_transform_publisher-6] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-6] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-6] from 'map' to 'odom'
+[robot_state_publisher-3] [INFO] [1778222133.358422995] [robot_state_publisher]: Robot initialized
+[parameter_bridge-5] [INFO] [1778222133.372260508] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/controller/cmd_vel (geometry_msgs/msg/Twist) -> /controller/cmd_vel (gz.msgs.Twist)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222133.373290342] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/odom (gz.msgs.Odometry) -> /odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222133.374133038] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/odom/tf (gz.msgs.Pose_V) -> /odom/tf (tf2_msgs/msg/TFMessage)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222133.374875480] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (gz.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222133.375248770] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (gz.msgs.Model) -> /joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222133.376000865] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/scan (gz.msgs.LaserScan) -> /scan (sensor_msgs/msg/LaserScan)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222133.376222330] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/scan/points (gz.msgs.PointCloudPacked) -> /scan/points (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222133.376459502] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/imu (gz.msgs.IMU) -> /imu (sensor_msgs/msg/Imu)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222133.376677373] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/depth_cam/depth_cam (gz.msgs.Image) -> /depth_cam/depth_cam (sensor_msgs/msg/Image)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222133.376868329] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/depth_cam/rgb/camera_info (gz.msgs.CameraInfo) -> /depth_cam/rgb/camera_info (sensor_msgs/msg/CameraInfo)] (Lazy 0)
+[joint_state_publisher-2] [INFO] [1778222133.578154920] [joint_state_publisher]: Waiting for robot_description to be published on the robot_description topic...
+[joint_state_publisher-2] [INFO] [1778222133.726580392] [joint_state_publisher]: Got description, configuring robot
+[create-4] [INFO] [1778222133.755773131] [ros_gz_sim]: Waiting messages on topic [robot_description].
+[create-4] [INFO] [1778222133.767768533] [ros_gz_sim]: Entity creation successful.
+[INFO] [create-4]: process has finished cleanly [pid 223295]
+[gazebo-1] [1;33mWarning [Utils.cc:132][0m [/sdf/model[@name="robot"]/link[@name="base_footprint"]/sensor[@name="lidar"]/ignition_frame_id:<urdf-string>:L0]: XML Element[ignition_frame_id], child of element[sensor], not defined in SDF. Copying[ignition_frame_id] as children of [sensor].
+[gazebo-1] [1;33mWarning [Utils.cc:132][0m [/sdf/model[@name="robot"]/link[@name="base_footprint"]/sensor[@name="lidar"]/alwaysOn:<urdf-string>:L0]: XML Element[alwaysOn], child of element[sensor], not defined in SDF. Copying[alwaysOn] as children of [sensor].
+Launch RViz: true
+[INFO] [launch]: All log files can be found below /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-35-32/ros/2026-05-08-14-35-38-026096-abc-Legion-Y9000P-IRX9-223493
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [map_server-1]: process started with pid [223500]
+[INFO] [amcl-2]: process started with pid [223501]
+[INFO] [lifecycle_manager-3]: process started with pid [223502]
+[INFO] [controller_server-4]: process started with pid [223503]
+[INFO] [smoother_server-5]: process started with pid [223504]
+[INFO] [planner_server-6]: process started with pid [223505]
+[INFO] [behavior_server-7]: process started with pid [223506]
+[INFO] [bt_navigator-8]: process started with pid [223507]
+[INFO] [waypoint_follower-9]: process started with pid [223508]
+[INFO] [velocity_smoother-10]: process started with pid [223509]
+[INFO] [lifecycle_manager-11]: process started with pid [223510]
+[INFO] [rviz2-12]: process started with pid [223511]
+[lifecycle_manager-3] [INFO] [1778222138.194550607] [lifecycle_manager_localization]: Creating
+[lifecycle_manager-3] [INFO] [1778222138.196344642] [lifecycle_manager_localization]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[velocity_smoother-10] [INFO] [1778222138.199389518] [velocity_smoother]: 
+[velocity_smoother-10] 	velocity_smoother lifecycle node launched. 
+[velocity_smoother-10] 	Waiting on external lifecycle transitions to activate
+[velocity_smoother-10] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[lifecycle_manager-11] [INFO] [1778222138.201626999] [lifecycle_manager_navigation]: Creating
+[lifecycle_manager-11] [INFO] [1778222138.205138515] [lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[map_server-1] [INFO] [1778222138.205560211] [map_server]: 
+[map_server-1] 	map_server lifecycle node launched. 
+[map_server-1] 	Waiting on external lifecycle transitions to activate
+[map_server-1] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[map_server-1] [INFO] [1778222138.205609191] [map_server]: Creating
+[smoother_server-5] [INFO] [1778222138.212930837] [smoother_server]: 
+[smoother_server-5] 	smoother_server lifecycle node launched. 
+[smoother_server-5] 	Waiting on external lifecycle transitions to activate
+[smoother_server-5] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[smoother_server-5] [INFO] [1778222138.218774313] [smoother_server]: Creating smoother server
+[behavior_server-7] [INFO] [1778222138.227652462] [behavior_server]: 
+[behavior_server-7] 	behavior_server lifecycle node launched. 
+[behavior_server-7] 	Waiting on external lifecycle transitions to activate
+[behavior_server-7] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-4] [INFO] [1778222138.232599245] [controller_server]: 
+[controller_server-4] 	controller_server lifecycle node launched. 
+[controller_server-4] 	Waiting on external lifecycle transitions to activate
+[controller_server-4] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[waypoint_follower-9] [INFO] [1778222138.235156567] [waypoint_follower]: 
+[waypoint_follower-9] 	waypoint_follower lifecycle node launched. 
+[waypoint_follower-9] 	Waiting on external lifecycle transitions to activate
+[waypoint_follower-9] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[waypoint_follower-9] [INFO] [1778222138.235936166] [waypoint_follower]: Creating
+[controller_server-4] [INFO] [1778222138.236184204] [controller_server]: Creating controller server
+[bt_navigator-8] [INFO] [1778222138.237172387] [bt_navigator]: 
+[bt_navigator-8] 	bt_navigator lifecycle node launched. 
+[bt_navigator-8] 	Waiting on external lifecycle transitions to activate
+[bt_navigator-8] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-6] [INFO] [1778222138.237346852] [planner_server]: 
+[planner_server-6] 	planner_server lifecycle node launched. 
+[planner_server-6] 	Waiting on external lifecycle transitions to activate
+[planner_server-6] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-6] [INFO] [1778222138.238418734] [planner_server]: Creating
+[bt_navigator-8] [INFO] [1778222138.239021579] [bt_navigator]: Creating
+[amcl-2] [INFO] [1778222138.240420475] [amcl]: 
+[amcl-2] 	amcl lifecycle node launched. 
+[amcl-2] 	Waiting on external lifecycle transitions to activate
+[amcl-2] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[controller_server-4] [INFO] [1778222138.241234347] [local_costmap.local_costmap]: 
+[controller_server-4] 	local_costmap lifecycle node launched. 
+[controller_server-4] 	Waiting on external lifecycle transitions to activate
+[controller_server-4] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[amcl-2] [INFO] [1778222138.241706248] [amcl]: Creating
+[controller_server-4] [INFO] [1778222138.242572743] [local_costmap.local_costmap]: Creating Costmap
+[planner_server-6] [INFO] [1778222138.245638425] [global_costmap.global_costmap]: 
+[planner_server-6] 	global_costmap lifecycle node launched. 
+[planner_server-6] 	Waiting on external lifecycle transitions to activate
+[planner_server-6] 	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[planner_server-6] [INFO] [1778222138.246086772] [global_costmap.global_costmap]: Creating Costmap
+[lifecycle_manager-3] [INFO] [1778222138.305960846] [lifecycle_manager_localization]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-3] [INFO] [1778222138.306000479] [lifecycle_manager_localization]: [34m[1mConfiguring map_server[0m[0m
+[map_server-1] [INFO] [1778222138.306234394] [map_server]: Configuring
+[map_server-1] [INFO] [1778222138.306275662] [map_io]: Loading yaml file: /home/abc/Orin_src/install/robot_gazebo/share/robot_gazebo/maps/map_01.yaml
+[map_server-1] [INFO] [1778222138.306407922] [map_io]: resolution: 0.05
+[map_server-1] [INFO] [1778222138.306410956] [map_io]: origin[0]: -5.04
+[map_server-1] [INFO] [1778222138.306412888] [map_io]: origin[1]: -4.07
+[map_server-1] [INFO] [1778222138.306414358] [map_io]: origin[2]: 0
+[map_server-1] [INFO] [1778222138.306415959] [map_io]: free_thresh: 0.25
+[map_server-1] [INFO] [1778222138.306417368] [map_io]: occupied_thresh: 0.65
+[map_server-1] [INFO] [1778222138.306419289] [map_io]: mode: trinary
+[map_server-1] [INFO] [1778222138.306421257] [map_io]: negate: 0
+[map_server-1] [INFO] [1778222138.310405927] [map_io]: Loading image_file: /home/abc/Orin_src/install/robot_gazebo/share/robot_gazebo/maps/map_01.pgm
+[map_server-1] [INFO] [1778222138.311773452] [map_io]: Read map /home/abc/Orin_src/install/robot_gazebo/share/robot_gazebo/maps/map_01.pgm: 203 X 163 map @ 0.05 m/cell
+[lifecycle_manager-3] [INFO] [1778222138.315542765] [lifecycle_manager_localization]: [34m[1mConfiguring amcl[0m[0m
+[amcl-2] [INFO] [1778222138.315829733] [amcl]: Configuring
+[amcl-2] [INFO] [1778222138.315895235] [amcl]: initTransforms
+[amcl-2] [INFO] [1778222138.323760943] [amcl]: initPubSub
+[amcl-2] [INFO] [1778222138.331448748] [amcl]: Subscribed to map topic.
+[lifecycle_manager-3] [INFO] [1778222138.334478619] [lifecycle_manager_localization]: [34m[1mActivating map_server[0m[0m
+[map_server-1] [INFO] [1778222138.334618089] [map_server]: Activating
+[map_server-1] [INFO] [1778222138.334783028] [map_server]: Creating bond (map_server) to lifecycle manager.
+[amcl-2] [INFO] [1778222138.335171915] [amcl]: Received a 203 X 163 map @ 0.050 m/pix
+[lifecycle_manager-11] [INFO] [1778222138.395645661] [lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[lifecycle_manager-11] [INFO] [1778222138.395681837] [lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[lifecycle_manager-3] [INFO] [1778222138.438362440] [lifecycle_manager_localization]: Server map_server connected with bond.
+[lifecycle_manager-3] [INFO] [1778222138.438384656] [lifecycle_manager_localization]: [34m[1mActivating amcl[0m[0m
+[amcl-2] [INFO] [1778222138.438523063] [amcl]: Activating
+[amcl-2] [INFO] [1778222138.438541868] [amcl]: Creating bond (amcl) to lifecycle manager.
+[lifecycle_manager-3] [INFO] [1778222138.540977285] [lifecycle_manager_localization]: Server amcl connected with bond.
+[lifecycle_manager-3] [INFO] [1778222138.541005822] [lifecycle_manager_localization]: [34m[1mManaged nodes are active[0m[0m
+[lifecycle_manager-3] [INFO] [1778222138.541014881] [lifecycle_manager_localization]: [34m[1mCreating bond timer...[0m[0m
+[controller_server-4] [INFO] [1778222138.552732706] [controller_server]: Configuring controller interface
+[controller_server-4] [INFO] [1778222138.552753288] [controller_server]: getting progress checker plugins..
+[controller_server-4] [INFO] [1778222138.552868257] [controller_server]: getting goal checker plugins..
+[controller_server-4] [INFO] [1778222138.552916160] [controller_server]: Controller frequency set to 10.0000Hz
+[controller_server-4] [INFO] [1778222138.552943691] [local_costmap.local_costmap]: Configuring
+[controller_server-4] [INFO] [1778222138.556550603] [local_costmap.local_costmap]: Using plugin "voxel_layer"
+[controller_server-4] [INFO] [1778222138.565300696] [local_costmap.local_costmap]: Subscribed to Topics: scan
+[controller_server-4] [INFO] [1778222138.571327641] [local_costmap.local_costmap]: Initialized plugin "voxel_layer"
+[controller_server-4] [INFO] [1778222138.571341983] [local_costmap.local_costmap]: Using plugin "inflation_layer"
+[controller_server-4] [INFO] [1778222138.571528826] [local_costmap.local_costmap]: Initialized plugin "inflation_layer"
+[rviz2-12] [INFO] [1778222138.572849262] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-12] [INFO] [1778222138.572934089] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[controller_server-4] [INFO] [1778222138.577926382] [controller_server]: Created progress_checker : progress_checker of type nav2_controller::SimpleProgressChecker
+[controller_server-4] [INFO] [1778222138.578278334] [controller_server]: Controller Server has progress_checker  progress checkers available.
+[controller_server-4] [INFO] [1778222138.578793284] [controller_server]: Created goal checker : general_goal_checker of type nav2_controller::SimpleGoalChecker
+[controller_server-4] [INFO] [1778222138.578963348] [controller_server]: Controller Server has general_goal_checker  goal checkers available.
+[controller_server-4] [INFO] [1778222138.585144290] [controller_server]: Created controller : FollowPath of type dwb_core::DWBLocalPlanner
+[controller_server-4] [INFO] [1778222138.585511728] [controller_server]: Setting transform_tolerance to 0.200000
+[controller_server-4] [INFO] [1778222138.596039910] [controller_server]: Using critic "RotateToGoal" (dwb_critics::RotateToGoalCritic)
+[controller_server-4] [INFO] [1778222138.596241642] [controller_server]: Critic plugin initialized
+[controller_server-4] [INFO] [1778222138.596289631] [controller_server]: Using critic "Oscillation" (dwb_critics::OscillationCritic)
+[controller_server-4] [INFO] [1778222138.596449876] [controller_server]: Critic plugin initialized
+[controller_server-4] [INFO] [1778222138.596485019] [controller_server]: Using critic "BaseObstacle" (dwb_critics::BaseObstacleCritic)
+[controller_server-4] [INFO] [1778222138.596538185] [controller_server]: Critic plugin initialized
+[controller_server-4] [INFO] [1778222138.596572184] [controller_server]: Using critic "GoalAlign" (dwb_critics::GoalAlignCritic)
+[controller_server-4] [INFO] [1778222138.596690334] [controller_server]: Critic plugin initialized
+[controller_server-4] [INFO] [1778222138.596728856] [controller_server]: Using critic "PathAlign" (dwb_critics::PathAlignCritic)
+[controller_server-4] [INFO] [1778222138.596833410] [controller_server]: Critic plugin initialized
+[controller_server-4] [INFO] [1778222138.596867765] [controller_server]: Using critic "PathDist" (dwb_critics::PathDistCritic)
+[controller_server-4] [INFO] [1778222138.596946889] [controller_server]: Critic plugin initialized
+[controller_server-4] [INFO] [1778222138.596982245] [controller_server]: Using critic "GoalDist" (dwb_critics::GoalDistCritic)
+[controller_server-4] [INFO] [1778222138.597058890] [controller_server]: Critic plugin initialized
+[controller_server-4] [INFO] [1778222138.597065651] [controller_server]: Controller Server has FollowPath  controllers available.
+[lifecycle_manager-11] [INFO] [1778222138.601035379] [lifecycle_manager_navigation]: [34m[1mConfiguring smoother_server[0m[0m
+[smoother_server-5] [INFO] [1778222138.601215646] [smoother_server]: Configuring smoother server
+[rviz2-12] [INFO] [1778222138.605205203] [rviz2]: Stereo is NOT SUPPORTED
+[smoother_server-5] [INFO] [1778222138.609802008] [smoother_server]: Created smoother : simple_smoother of type nav2_smoother::SimpleSmoother
+[smoother_server-5] [INFO] [1778222138.609990801] [smoother_server]: Smoother Server has simple_smoother  smoothers available.
+[lifecycle_manager-11] [INFO] [1778222138.612788382] [lifecycle_manager_navigation]: [34m[1mConfiguring planner_server[0m[0m
+[planner_server-6] [INFO] [1778222138.612982451] [planner_server]: Configuring
+[planner_server-6] [INFO] [1778222138.613001576] [global_costmap.global_costmap]: Configuring
+[planner_server-6] [INFO] [1778222138.616319537] [global_costmap.global_costmap]: Using plugin "static_layer"
+[planner_server-6] [INFO] [1778222138.618163546] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[planner_server-6] [INFO] [1778222138.619032417] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[planner_server-6] [INFO] [1778222138.619045002] [global_costmap.global_costmap]: Using plugin "obstacle_layer"
+[planner_server-6] [INFO] [1778222138.619301810] [global_costmap.global_costmap]: Subscribed to Topics: scan
+[planner_server-6] [INFO] [1778222138.620738954] [global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+[planner_server-6] [INFO] [1778222138.620750108] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[planner_server-6] [INFO] [1778222138.620954414] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[planner_server-6] [FATAL] [1778222138.629365852] [planner_server]: Failed to create global planner. Exception: According to the loaded plugin descriptions the class nav2_navfn_planner/NavfnPlanner with base class type nav2_core::GlobalPlanner does not exist. Declared types are  nav2_navfn_planner::NavfnPlanner nav2_smac_planner::SmacPlanner2D nav2_smac_planner::SmacPlannerHybrid nav2_smac_planner::SmacPlannerLattice nav2_theta_star_planner::ThetaStarPlanner
+[planner_server-6] [INFO] [1778222138.629404593] [planner_server]: Cleaning up
+[planner_server-6] [INFO] [1778222138.629412941] [global_costmap.global_costmap]: Cleaning up
+[lifecycle_manager-11] [ERROR] [1778222138.636066990] [lifecycle_manager_navigation]: Failed to change state for node: planner_server
+[lifecycle_manager-11] [ERROR] [1778222138.636124738] [lifecycle_manager_navigation]: Failed to bring up all requested nodes. Aborting bringup.
+[rviz2-12] [WARN] [1778222138.682021171] [rcl.logging_rosout]: Publisher already registered for node name: 'rviz2'. If this is due to multiple nodes with the same name then all logs for the logger named 'rviz2' will go out over the existing publisher. As soon as any node with that name is destructed it will unregister the publisher, preventing any further logs for that name from being published on the rosout topic.
+[rviz2-12] [WARN] [1778222138.689895136] [rcl.logging_rosout]: Publisher already registered for node name: 'rviz2'. If this is due to multiple nodes with the same name then all logs for the logger named 'rviz2' will go out over the existing publisher. As soon as any node with that name is destructed it will unregister the publisher, preventing any further logs for that name from being published on the rosout topic.
+[rviz2-12] [INFO] [1778222139.013527982] [rviz2]: Trying to create a map of size 203 x 163 using 1 swatches
+[rviz2-12] [INFO] [1778222140.702263304] [rviz2]: Waiting for the slam_toolbox node configuration.
+[rviz2-12] [INFO] [1778222145.703573632] [rviz2]: Waiting for the slam_toolbox node configuration.
+[rviz2-12] [INFO] [1778222150.704544802] [rviz2]: Waiting for the slam_toolbox node configuration.

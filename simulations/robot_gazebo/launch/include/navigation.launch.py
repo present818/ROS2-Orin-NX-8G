@@ -110,6 +110,9 @@ def launch_setup(context):
     declare_log_level_cmd = DeclareLaunchArgument(
         'log_level', default_value='info',
         description='log level')
+    declare_launch_rviz_cmd = DeclareLaunchArgument(
+        'launch_rviz', default_value='true',
+        description='Whether to launch RViz')
 
     declare_controller_server_params_file_cmd = DeclareLaunchArgument(
         'controller_server_file',
@@ -299,6 +302,7 @@ def launch_setup(context):
             name='rviz2',
             arguments=['-d', rviz_config_dir],
             parameters=[{'use_sim_time': use_sim_time}],
+            condition=IfCondition(LaunchConfiguration('launch_rviz')),
             output='screen')
 
 
@@ -316,6 +320,7 @@ def launch_setup(context):
         declare_container_name_cmd,
         declare_use_respawn_cmd,
         declare_log_level_cmd,
+        declare_launch_rviz_cmd,
         
         localization_launch,
         load_nodes,

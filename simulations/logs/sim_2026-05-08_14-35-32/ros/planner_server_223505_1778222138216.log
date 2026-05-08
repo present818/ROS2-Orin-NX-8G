@@ -1,0 +1,26 @@
+[INFO] [1778222138.237346852] [planner_server]: 
+	planner_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1778222138.238418734] [planner_server]: Creating
+[INFO] [1778222138.245638425] [global_costmap.global_costmap]: 
+	global_costmap lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1778222138.246086772] [global_costmap.global_costmap]: Creating Costmap
+[INFO] [1778222138.612982451] [planner_server]: Configuring
+[INFO] [1778222138.613001576] [global_costmap.global_costmap]: Configuring
+[INFO] [1778222138.616319537] [global_costmap.global_costmap]: Using plugin "static_layer"
+[INFO] [1778222138.618163546] [global_costmap.global_costmap]: Subscribing to the map topic (/map) with transient local durability
+[INFO] [1778222138.619032417] [global_costmap.global_costmap]: Initialized plugin "static_layer"
+[INFO] [1778222138.619045002] [global_costmap.global_costmap]: Using plugin "obstacle_layer"
+[INFO] [1778222138.619301810] [global_costmap.global_costmap]: Subscribed to Topics: scan
+[INFO] [1778222138.620738954] [global_costmap.global_costmap]: Initialized plugin "obstacle_layer"
+[INFO] [1778222138.620750108] [global_costmap.global_costmap]: Using plugin "inflation_layer"
+[INFO] [1778222138.620954414] [global_costmap.global_costmap]: Initialized plugin "inflation_layer"
+[FATAL] [1778222138.629365852] [planner_server]: Failed to create global planner. Exception: According to the loaded plugin descriptions the class nav2_navfn_planner/NavfnPlanner with base class type nav2_core::GlobalPlanner does not exist. Declared types are  nav2_navfn_planner::NavfnPlanner nav2_smac_planner::SmacPlanner2D nav2_smac_planner::SmacPlannerHybrid nav2_smac_planner::SmacPlannerLattice nav2_theta_star_planner::ThetaStarPlanner
+[INFO] [1778222138.629404593] [planner_server]: Cleaning up
+[INFO] [1778222138.629412941] [global_costmap.global_costmap]: Cleaning up
+[INFO] [1778222151.200415404] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1778222151.200441220] [planner_server]: Running Nav2 LifecycleNode rcl preshutdown (planner_server)
+[INFO] [1778222151.200462258] [planner_server]: Destroying bond (planner_server) to lifecycle manager.

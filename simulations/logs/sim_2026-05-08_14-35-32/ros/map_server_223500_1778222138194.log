@@ -1,0 +1,19 @@
+[INFO] [1778222138.205560211] [map_server]: 
+	map_server lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1778222138.205609191] [map_server]: Creating
+[INFO] [1778222138.306234394] [map_server]: Configuring
+[INFO] [1778222138.306275662] [map_io]: Loading yaml file: /home/abc/Orin_src/install/robot_gazebo/share/robot_gazebo/maps/map_01.yaml
+[INFO] [1778222138.306407922] [map_io]: resolution: 0.05
+[INFO] [1778222138.306410956] [map_io]: origin[0]: -5.04
+[INFO] [1778222138.306412888] [map_io]: origin[1]: -4.07
+[INFO] [1778222138.306414358] [map_io]: origin[2]: 0
+[INFO] [1778222138.306415959] [map_io]: free_thresh: 0.25
+[INFO] [1778222138.306417368] [map_io]: occupied_thresh: 0.65
+[INFO] [1778222138.306419289] [map_io]: mode: trinary
+[INFO] [1778222138.306421257] [map_io]: negate: 0
+[INFO] [1778222138.310405927] [map_io]: Loading image_file: /home/abc/Orin_src/install/robot_gazebo/share/robot_gazebo/maps/map_01.pgm
+[INFO] [1778222138.311773452] [map_io]: Read map /home/abc/Orin_src/install/robot_gazebo/share/robot_gazebo/maps/map_01.pgm: 203 X 163 map @ 0.05 m/cell
+[INFO] [1778222138.334618089] [map_server]: Activating
+[INFO] [1778222138.334783028] [map_server]: Creating bond (map_server) to lifecycle manager.

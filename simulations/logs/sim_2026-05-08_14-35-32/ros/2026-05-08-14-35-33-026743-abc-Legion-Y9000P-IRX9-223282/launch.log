@@ -1,0 +1,9 @@
+1778222133.0272591 [INFO] [launch]: All log files can be found below /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-35-32/ros/2026-05-08-14-35-33-026743-abc-Legion-Y9000P-IRX9-223282
+1778222133.0273390 [INFO] [launch]: Default logging verbosity is set to INFO
+1778222133.3251405 [INFO] [gazebo-1]: process started with pid [223291]
+1778222133.3252296 [INFO] [joint_state_publisher-2]: process started with pid [223292]
+1778222133.3252661 [INFO] [robot_state_publisher-3]: process started with pid [223294]
+1778222133.3252952 [INFO] [create-4]: process started with pid [223295]
+1778222133.3253195 [INFO] [parameter_bridge-5]: process started with pid [223296]
+1778222133.3253412 [INFO] [static_transform_publisher-6]: process started with pid [223297]
+1778222133.8725901 [INFO] [create-4]: process has finished cleanly [pid 223295]

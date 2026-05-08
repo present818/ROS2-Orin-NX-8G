@@ -1,0 +1,15 @@
+1778222470.0662575 [INFO] [launch]: All log files can be found below /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-41-04/ros/2026-05-08-14-41-10-065723-abc-Legion-Y9000P-IRX9-236640
+1778222470.0663319 [INFO] [launch]: Default logging verbosity is set to INFO
+1778222470.2185466 [INFO] [map_server-1]: process started with pid [236658]
+1778222470.2186363 [INFO] [amcl-2]: process started with pid [236659]
+1778222470.2186716 [INFO] [lifecycle_manager-3]: process started with pid [236660]
+1778222470.2186997 [INFO] [controller_server-4]: process started with pid [236661]
+1778222470.2187226 [INFO] [smoother_server-5]: process started with pid [236662]
+1778222470.2187438 [INFO] [planner_server-6]: process started with pid [236663]
+1778222470.2187653 [INFO] [behavior_server-7]: process started with pid [236664]
+1778222470.2187874 [INFO] [bt_navigator-8]: process started with pid [236665]
+1778222470.2188077 [INFO] [waypoint_follower-9]: process started with pid [236666]
+1778222470.2188275 [INFO] [velocity_smoother-10]: process started with pid [236667]
+1778222470.2188628 [INFO] [lifecycle_manager-11]: process started with pid [236668]
+1778222470.2188835 [INFO] [rviz2-12]: process started with pid [236669]
+1778222472.9422734 [ERROR] [bt_navigator-8]: process has died [pid 236665, exit code -11, cmd '/opt/ros/jazzy/lib/nav2_bt_navigator/bt_navigator --ros-args --log-level info --ros-args -r __node:=bt_navigator --params-file /tmp/launch_params_nhfz5_bv -r /tf:=tf -r /tf_static:=tf_static'].

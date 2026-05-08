@@ -1,0 +1,12 @@
+[INFO] [1778222138.240420475] [amcl]: 
+	amcl lifecycle node launched. 
+	Waiting on external lifecycle transitions to activate
+	See https://design.ros2.org/articles/node_lifecycle.html for more information.
+[INFO] [1778222138.241706248] [amcl]: Creating
+[INFO] [1778222138.315829733] [amcl]: Configuring
+[INFO] [1778222138.315895235] [amcl]: initTransforms
+[INFO] [1778222138.323760943] [amcl]: initPubSub
+[INFO] [1778222138.331448748] [amcl]: Subscribed to map topic.
+[INFO] [1778222138.335171915] [amcl]: Received a 203 X 163 map @ 0.050 m/pix
+[INFO] [1778222138.438523063] [amcl]: Activating
+[INFO] [1778222138.438541868] [amcl]: Creating bond (amcl) to lifecycle manager.

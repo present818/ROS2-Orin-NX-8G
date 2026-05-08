@@ -1,0 +1,61 @@
+Log dir: /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-35-14
+Log file: /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-35-14/terminal.log
+ROS setup: /opt/ros/jazzy/setup.bash
+Workspace: /home/abc/Orin_src
+World: robocup_home
+Sim mode: slam
+Gazebo GUI: false
+Machine type: ROSOrin_Mecanum
+ROS log dir: /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-35-14/ros
+[INFO] [launch]: All log files can be found below /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-35-14/ros/2026-05-08-14-35-14-616564-abc-Legion-Y9000P-IRX9-222663
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gazebo-1]: process started with pid [222669]
+[INFO] [joint_state_publisher-2]: process started with pid [222670]
+[INFO] [robot_state_publisher-3]: process started with pid [222671]
+[INFO] [create-4]: process started with pid [222673]
+[INFO] [parameter_bridge-5]: process started with pid [222674]
+[INFO] [static_transform_publisher-6]: process started with pid [222675]
+[static_transform_publisher-6] [WARN] [1778222114.916499919] []: Old-style arguments are deprecated; see --help for new-style arguments
+[robot_state_publisher-3] [INFO] [1778222114.923793062] [robot_state_publisher]: Robot initialized
+[static_transform_publisher-6] [INFO] [1778222114.930344767] [static_transform_publisher]: Spinning until stopped - publishing transform
+[static_transform_publisher-6] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-6] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-6] from 'map' to 'odom'
+[parameter_bridge-5] [INFO] [1778222114.931457617] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/controller/cmd_vel (geometry_msgs/msg/Twist) -> /controller/cmd_vel (gz.msgs.Twist)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222114.932501269] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/odom (gz.msgs.Odometry) -> /odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222114.933365680] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/odom/tf (gz.msgs.Pose_V) -> /odom/tf (tf2_msgs/msg/TFMessage)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222114.934078915] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (gz.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222114.934435701] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (gz.msgs.Model) -> /joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222114.935176360] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/scan (gz.msgs.LaserScan) -> /scan (sensor_msgs/msg/LaserScan)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222114.935420102] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/scan/points (gz.msgs.PointCloudPacked) -> /scan/points (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222114.935701876] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/imu (gz.msgs.IMU) -> /imu (sensor_msgs/msg/Imu)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222114.935969429] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/depth_cam/depth_cam (gz.msgs.Image) -> /depth_cam/depth_cam (sensor_msgs/msg/Image)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778222114.936210771] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/depth_cam/rgb/camera_info (gz.msgs.CameraInfo) -> /depth_cam/rgb/camera_info (sensor_msgs/msg/CameraInfo)] (Lazy 0)
+[create-4] [INFO] [1778222114.938353698] [ros_gz_sim]: Requesting list of world names.
+[joint_state_publisher-2] [INFO] [1778222115.152404189] [joint_state_publisher]: Waiting for robot_description to be published on the robot_description topic...
+[joint_state_publisher-2] [INFO] [1778222115.301212777] [joint_state_publisher]: Got description, configuring robot
+[create-4] [INFO] [1778222115.325287547] [ros_gz_sim]: Waiting messages on topic [robot_description].
+[create-4] [INFO] [1778222115.337239588] [ros_gz_sim]: Entity creation successful.
+[INFO] [create-4]: process has finished cleanly [pid 222673]
+[gazebo-1] [1;33mWarning [Utils.cc:132][0m [/sdf/model[@name="robot"]/link[@name="base_footprint"]/sensor[@name="lidar"]/ignition_frame_id:<urdf-string>:L0]: XML Element[ignition_frame_id], child of element[sensor], not defined in SDF. Copying[ignition_frame_id] as children of [sensor].
+[gazebo-1] [1;33mWarning [Utils.cc:132][0m [/sdf/model[@name="robot"]/link[@name="base_footprint"]/sensor[@name="lidar"]/alwaysOn:<urdf-string>:L0]: XML Element[alwaysOn], child of element[sensor], not defined in SDF. Copying[alwaysOn] as children of [sensor].
+Launch RViz: true
+[INFO] [launch]: All log files can be found below /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-35-14/ros/2026-05-08-14-35-19-615874-abc-Legion-Y9000P-IRX9-222904
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [sync_slam_toolbox_node-1]: process started with pid [222907]
+[INFO] [rviz2-2]: process started with pid [222908]
+[sync_slam_toolbox_node-1] [INFO] [1778222119.706201870] [slam_toolbox]: Node using stack size 40000000
+[rviz2-2] [INFO] [1778222119.945852910] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-2] [INFO] [1778222119.945894456] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[rviz2-2] [INFO] [1778222119.977276718] [rviz2]: Stereo is NOT SUPPORTED
+[sync_slam_toolbox_node-1] [WARN] [1778222120.036289856] [rclcpp]: Failed to get parameters: paused_new_measurements
+[rviz2-2] [INFO] [1778222120.036391156] [SlamToolboxPlugin]: Waiting for the slam_toolbox node configuration.
+[sync_slam_toolbox_node-1] [WARN] [1778222121.030721209] [rclcpp]: Failed to get parameters: paused_new_measurements
+[sync_slam_toolbox_node-1] [WARN] [1778222122.030812863] [rclcpp]: Failed to get parameters: paused_new_measurements
+[sync_slam_toolbox_node-1] [WARN] [1778222123.030764241] [rclcpp]: Failed to get parameters: paused_new_measurements
+[sync_slam_toolbox_node-1] [WARN] [1778222124.030707260] [rclcpp]: Failed to get parameters: paused_new_measurements
+[sync_slam_toolbox_node-1] [WARN] [1778222125.030704357] [rclcpp]: Failed to get parameters: paused_new_measurements
+[sync_slam_toolbox_node-1] [WARN] [1778222126.030851164] [rclcpp]: Failed to get parameters: paused_new_measurements
+[rviz2-2] [INFO] [1778222126.031198881] [SlamToolboxPlugin]: Waiting for the slam_toolbox node configuration.
+[sync_slam_toolbox_node-1] [WARN] [1778222127.030799935] [rclcpp]: Failed to get parameters: paused_new_measurements
+[sync_slam_toolbox_node-1] [WARN] [1778222128.030744251] [rclcpp]: Failed to get parameters: paused_new_measurements

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="gpu_lidar">
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="lidar">
     <gazebo reference="lidar_frame">
-        <sensor name="gpu_lidar" type="gpu_lidar">
+        <sensor name="lidar" type="ray">
             <!-- <pose>0 0 0 0 0 0</pose>             -->
             <topic>scan</topic>
             <update_rate>10</update_rate>

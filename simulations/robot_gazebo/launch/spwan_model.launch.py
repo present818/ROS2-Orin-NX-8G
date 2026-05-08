@@ -12,13 +12,16 @@ from launch_ros.actions import Node
 def launch_setup(context):
     # Launch Arguments
     use_sim_time = LaunchConfiguration('use_sim_time', default='true').perform(context)
-    world_name = LaunchConfiguration('world', default='robocup_home').perform(context)
+    world_name = LaunchConfiguration('world_name', default='robocup_home').perform(context)
     moveit_unite = LaunchConfiguration('moveit_unite', default='false').perform(context)
+    gui = LaunchConfiguration('gui', default='true').perform(context)
 
     sim_ign = 'false' if moveit_unite == 'true' else 'true'
+    headless = 'false' if gui == 'true' else 'true'
 
-    world_name_arg = DeclareLaunchArgument('world', default_value=world_name)
+    world_name_arg = DeclareLaunchArgument('world_name', default_value=world_name)
     use_sim_time_arg = DeclareLaunchArgument('use_sim_time', default_value=use_sim_time)
+    gui_arg = DeclareLaunchArgument('gui', default_value=gui)
 
     use_sim_time = True if use_sim_time == 'true' else False
     
@@ -27,9 +30,10 @@ def launch_setup(context):
     xacro_file = os.path.join(robot_gazebo_path, 'urdf', 'robot.gazebo.xacro')
     # 生成机器人描述
     robot_description_content = Command([
-        'xacro "',
+        'xacro ',
         xacro_file,
-        '" sim_ign:=', sim_ign
+        ' sim_ign:=', sim_ign,
+        ' headless:=', headless,
     ])
 
     robot_state_publisher_node = Node(
@@ -75,6 +79,7 @@ def launch_setup(context):
     return [
         use_sim_time_arg,
         world_name_arg,
+        gui_arg,
 
         joint_state_publisher_node,
         robot_state_publisher_node,

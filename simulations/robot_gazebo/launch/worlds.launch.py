@@ -26,6 +26,15 @@ def launch_setup(context):
 
 
     robot_gazebo_path = get_package_share_directory('robot_gazebo')
+    rosorin_description_path = get_package_share_directory('rosorin_description')
+    resource_roots = [
+        os.path.dirname(robot_gazebo_path),
+        os.path.dirname(rosorin_description_path),
+    ]
+    existing_gz_resource_path = os.environ.get('GZ_SIM_RESOURCE_PATH')
+    if existing_gz_resource_path:
+        resource_roots.append(existing_gz_resource_path)
+    gz_resource_path = os.pathsep.join(resource_roots)
 
 
     # world
@@ -54,6 +63,7 @@ def launch_setup(context):
             'moveit_unite': moveit_unite,
             'world_name': world_name,
             'use_sim_time': use_sim_time,
+            'gui': gui,
         }.items(),
     )
 
@@ -66,6 +76,8 @@ def launch_setup(context):
         machine_type_arg,
         gui_arg,
         SetEnvironmentVariable('MACHINE_TYPE', machine_type),
+        SetEnvironmentVariable('GZ_SIM_RESOURCE_PATH', gz_resource_path),
+        SetEnvironmentVariable('IGN_GAZEBO_RESOURCE_PATH', gz_resource_path),
         gz_sim,
         spwan_model_launch,
         ros_gz_bridge_launch,

@@ -1,0 +1,10 @@
+[INFO] [1778222138.201626999] [lifecycle_manager_navigation]: Creating
+[INFO] [1778222138.205138515] [lifecycle_manager_navigation]: [34m[1mCreating and initializing lifecycle service clients[0m[0m
+[INFO] [1778222138.395645661] [lifecycle_manager_navigation]: [34m[1mStarting managed nodes bringup...[0m[0m
+[INFO] [1778222138.395681837] [lifecycle_manager_navigation]: [34m[1mConfiguring controller_server[0m[0m
+[INFO] [1778222138.601035379] [lifecycle_manager_navigation]: [34m[1mConfiguring smoother_server[0m[0m
+[INFO] [1778222138.612788382] [lifecycle_manager_navigation]: [34m[1mConfiguring planner_server[0m[0m
+[ERROR] [1778222138.636066990] [lifecycle_manager_navigation]: Failed to change state for node: planner_server
+[ERROR] [1778222138.636124738] [lifecycle_manager_navigation]: Failed to bring up all requested nodes. Aborting bringup.
+[INFO] [1778222151.200377391] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [1778222151.200420336] [lifecycle_manager_navigation]: Running Nav2 LifecycleManager rcl preshutdown (lifecycle_manager_navigation)

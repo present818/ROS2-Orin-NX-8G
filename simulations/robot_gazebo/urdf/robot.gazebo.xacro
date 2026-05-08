@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot name="robot" xmlns:xacro="http://ros.org/wiki/xacro">
     <xacro:arg name="sim_ign" default="true"/>
+    <xacro:arg name="headless" default="false"/>
 
     <!-- robot_description -->
     <xacro:include filename="$(find rosorin_description)/urdf/rosorin.xacro"/>
@@ -8,11 +9,14 @@
     <xacro:if value="$(arg sim_ign)">
         <xacro:include filename="$(find robot_gazebo)/urdf/wheel.xacro"/>
     </xacro:if>
-    
+
     <!-- lidar -->
     <xacro:include filename="$(find robot_gazebo)/urdf/lidar.gazebo.xacro"/>
-    <!-- camera -->
-    <xacro:include filename="$(find robot_gazebo)/urdf/camera.gazebo.xacro"/>
+
+    <xacro:unless value="$(arg headless)">
+        <!-- camera -->
+        <xacro:include filename="$(find robot_gazebo)/urdf/camera.gazebo.xacro"/>
+    </xacro:unless>
 
     <gazebo>
         <!-- joint -->
@@ -20,10 +24,14 @@
             <topic>joint_states</topic>
         </plugin>
 
-        <!-- sensor-liar -->
-        <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
-            <render_engine>ogre2</render_engine>
-        </plugin>
+        <xacro:unless value="$(arg headless)">
+            <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
+                <render_engine>ogre2</render_engine>
+            </plugin>
+        </xacro:unless>
+        <xacro:if value="$(arg headless)">
+            <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors"/>
+        </xacro:if>
 
         <!-- imu -->
         <plugin filename="ignition-gazebo-imu-system" name="ignition::gazebo::systems::Imu"></plugin>
