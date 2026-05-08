@@ -61,9 +61,15 @@ def launch_setup(context):
                   ('/tf_static', 'tf_static')]
 
     # Create our own temporary YAML files that include substitutions
+    bt_xml_path = os.path.join(
+        robot_gazebo_dir,
+        'config',
+        'navigate_to_pose_minimal.xml')
+
     param_substitutions = {
         'use_sim_time': use_sim_time,
-        'autostart': autostart}
+        'autostart': autostart,
+        'default_nav_to_pose_bt_xml': bt_xml_path}
 
     configured_params = ParameterFile(
         RewrittenYaml(
