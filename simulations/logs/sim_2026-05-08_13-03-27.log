@@ -1,0 +1,78 @@
+Log file: /home/abc/Orin_src/simulations/logs/sim_2026-05-08_13-03-27.log
+Workspace: /home/abc/Orin_src
+World: robocup_home
+Gazebo GUI: false
+Machine type: ROSOrin_Mecanum
+RViz config: /home/abc/Orin_src/simulations/robot_gazebo/rviz/nav_nav2.rviz
+[INFO] [launch]: All log files can be found below /home/abc/.ros/log/2026-05-08-13-03-27-666144-abc-Legion-Y9000P-IRX9-157439
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [gazebo-1]: process started with pid [157444]
+[INFO] [joint_state_publisher-2]: process started with pid [157445]
+[INFO] [robot_state_publisher-3]: process started with pid [157446]
+[INFO] [create-4]: process started with pid [157447]
+[INFO] [parameter_bridge-5]: process started with pid [157449]
+[INFO] [static_transform_publisher-6]: process started with pid [157450]
+[static_transform_publisher-6] [WARN] [1778216607.969252014] []: Old-style arguments are deprecated; see --help for new-style arguments
+[static_transform_publisher-6] [INFO] [1778216607.976031288] [static_transform_publisher]: Spinning until stopped - publishing transform
+[static_transform_publisher-6] translation: ('0.000000', '0.000000', '0.000000')
+[static_transform_publisher-6] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-6] from 'map' to 'odom'
+[robot_state_publisher-3] [INFO] [1778216607.990835807] [robot_state_publisher]: Robot initialized
+[create-4] [INFO] [1778216607.996478354] [ros_gz_sim]: Requesting list of world names.
+[parameter_bridge-5] [INFO] [1778216608.006918529] [ros_gz_bridge]: Creating ROS->GZ Bridge: [/controller/cmd_vel (geometry_msgs/msg/Twist) -> /controller/cmd_vel (gz.msgs.Twist)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778216608.007905333] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/odom (gz.msgs.Odometry) -> /odom (nav_msgs/msg/Odometry)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778216608.008770256] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/odom/tf (gz.msgs.Pose_V) -> /odom/tf (tf2_msgs/msg/TFMessage)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778216608.009530908] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/clock (gz.msgs.Clock) -> /clock (rosgraph_msgs/msg/Clock)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778216608.009862257] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/joint_states (gz.msgs.Model) -> /joint_states (sensor_msgs/msg/JointState)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778216608.010615351] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/scan (gz.msgs.LaserScan) -> /scan (sensor_msgs/msg/LaserScan)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778216608.010826581] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/scan/points (gz.msgs.PointCloudPacked) -> /scan/points (sensor_msgs/msg/PointCloud2)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778216608.011066240] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/imu (gz.msgs.IMU) -> /imu (sensor_msgs/msg/Imu)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778216608.011273381] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/depth_cam/depth_cam (gz.msgs.Image) -> /depth_cam/depth_cam (sensor_msgs/msg/Image)] (Lazy 0)
+[parameter_bridge-5] [INFO] [1778216608.011468348] [ros_gz_bridge]: Creating GZ->ROS Bridge: [/depth_cam/rgb/camera_info (gz.msgs.CameraInfo) -> /depth_cam/rgb/camera_info (sensor_msgs/msg/CameraInfo)] (Lazy 0)
+[joint_state_publisher-2] [INFO] [1778216608.199650948] [joint_state_publisher]: Waiting for robot_description to be published on the robot_description topic...
+[joint_state_publisher-2] [INFO] [1778216608.349938664] [joint_state_publisher]: Got description, configuring robot
+[create-4] [INFO] [1778216608.387202858] [ros_gz_sim]: Waiting messages on topic [robot_description].
+[create-4] [INFO] [1778216608.398977603] [ros_gz_sim]: Entity creation successful.
+[INFO] [create-4]: process has finished cleanly [pid 157447]
+[gazebo-1] [1;33mWarning [Utils.cc:132][0m [/sdf/model[@name="robot"]/link[@name="base_footprint"]/sensor[@name="robot_cam"]/camera_info_topic:<urdf-string>:L0]: XML Element[camera_info_topic], child of element[sensor], not defined in SDF. Copying[camera_info_topic] as children of [sensor].
+[gazebo-1] [1;33mWarning [Utils.cc:132][0m [/sdf/model[@name="robot"]/link[@name="base_footprint"]/sensor[@name="gpu_lidar"]/ignition_frame_id:<urdf-string>:L0]: XML Element[ignition_frame_id], child of element[sensor], not defined in SDF. Copying[ignition_frame_id] as children of [sensor].
+[gazebo-1] [1;33mWarning [Utils.cc:132][0m [/sdf/model[@name="robot"]/link[@name="base_footprint"]/sensor[@name="gpu_lidar"]/alwaysOn:<urdf-string>:L0]: XML Element[alwaysOn], child of element[sensor], not defined in SDF. Copying[alwaysOn] as children of [sensor].
+[gazebo-1] [1;31m[Err] [SystemPaths.cc:426] [0m[1;31mUnable to find file with URI [[0m[1;31mmodel://rosorin_description/meshes/base_link_mec.stl[0m[1;31m][0m[1;31m[0m
+[gazebo-1] [1;31m[Err] [SystemPaths.cc:526] [0m[1;31mCould not resolve file [[0m[1;31mmodel://rosorin_description/meshes/base_link_mec.stl[0m[1;31m][0m[1;31m[0m
+[gazebo-1] [1;31m[Err] [MeshManager.cc:211] [0m[1;31mUnable to find file[[0m[1;31mmodel://rosorin_description/meshes/base_link_mec.stl[0m[1;31m][0m
+[gazebo-1] libEGL warning: Not allowed to force software rendering when API explicitly selects a hardware device.
+[gazebo-1] libEGL warning: pci id for fd 69: 10de:28e0, driver (null)
+[gazebo-1] 
+[gazebo-1] Stack trace (most recent call last) in thread 157607:
+[gazebo-1] #23   Object "[0xffffffffffffffff]", at 0xffffffffffffffff, in 
+[gazebo-1] #22   Object "/lib/x86_64-linux-gnu/libc.so.6", at 0x7d96fed29c6b, in 
+[gazebo-1] #21   Object "/lib/x86_64-linux-gnu/libc.so.6", at 0x7d96fec9caa3, in 
+[gazebo-1] #20   Object "/lib/x86_64-linux-gnu/libstdc++.so.6", at 0x7d96f98ecdb3, in 
+[gazebo-1] #19   Object "/opt/ros/jazzy/opt/gz_sim_vendor/lib/gz-sim-8/plugins/libgz-sim-sensors-system.so", at 0x7d96dc332cee, in gz::sim::v8::systems::SensorsPrivate::RenderThread()
+[gazebo-1] #18   Object "/opt/ros/jazzy/opt/gz_sim_vendor/lib/gz-sim-8/plugins/libgz-sim-sensors-system.so", at 0x7d96dc330b3b, in gz::sim::v8::systems::SensorsPrivate::WaitForInit()
+[gazebo-1] #17   Object "/opt/ros/jazzy/opt/gz_sim_vendor/lib/libgz-sim8-rendering.so.8", at 0x7d96dc28b129, in gz::sim::v8::RenderUtil::Init()
+[gazebo-1] #16   Object "/opt/ros/jazzy/opt/gz_rendering_vendor/lib/libgz-rendering8.so.8", at 0x7d96dc1462b2, in gz::rendering::v8::RenderEngineManager::Engine(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+[gazebo-1] #15   Object "/opt/ros/jazzy/opt/gz_rendering_vendor/lib/libgz-rendering8.so.8", at 0x7d96dc145ffb, in gz::rendering::v8::RenderEngineManagerPrivate::Engine(EngineInfo, std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+[gazebo-1] #14   Object "/opt/ros/jazzy/opt/gz_rendering_vendor/lib/libgz-rendering8.so.8", at 0x7d96dc14e617, in gz::rendering::v8::BaseRenderEngine::Load(std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&)
+[gazebo-1] #13   Object "/opt/ros/jazzy/opt/gz_rendering_vendor/lib/gz-rendering-8/engine-plugins/libgz-rendering-ogre2.so", at 0x7d96bedffa26, in gz::rendering::v8::Ogre2RenderEngine::LoadImpl(std::map<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&)
+[gazebo-1] #12   Object "/opt/ros/jazzy/opt/gz_rendering_vendor/lib/gz-rendering-8/engine-plugins/libgz-rendering-ogre2.so", at 0x7d96bedfea14, in gz::rendering::v8::Ogre2RenderEngine::LoadAttempt()
+[gazebo-1] #11   Object "/opt/ros/jazzy/opt/gz_rendering_vendor/lib/gz-rendering-8/engine-plugins/libgz-rendering-ogre2.so", at 0x7d96bedfc711, in gz::rendering::v8::Ogre2RenderEngine::LoadPlugins()
+[gazebo-1] #10   Object "/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib/libOgreNextMain.so.2.3.3", at 0x7d96be940eac, in Ogre::Root::loadPlugin(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool, Ogre::StdMap<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, Ogre::STLAllocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, Ogre::CategorisedAllocPolicy<(Ogre::MemoryCategory)0> > > const*)
+[gazebo-1] #9    Object "/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib/libOgreNextMain.so.2.3.3", at 0x7d96be93f79b, in Ogre::Root::installPlugin(Ogre::Plugin*, Ogre::StdMap<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, Ogre::STLAllocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, Ogre::CategorisedAllocPolicy<(Ogre::MemoryCategory)0> > > const*)
+[gazebo-1] #8    Object "/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib/OGRE-Next/RenderSystem_GL3Plus.so", at 0x7d96ab5ab25e, in Ogre::GL3PlusPlugin::install(Ogre::StdMap<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, Ogre::STLAllocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, Ogre::CategorisedAllocPolicy<(Ogre::MemoryCategory)0> > > const*)
+[gazebo-1] #7    Object "/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib/OGRE-Next/RenderSystem_GL3Plus.so", at 0x7d96ab5adfa0, in Ogre::GL3PlusRenderSystem::GL3PlusRenderSystem(Ogre::StdMap<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, Ogre::STLAllocator<std::pair<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, Ogre::CategorisedAllocPolicy<(Ogre::MemoryCategory)0> > > const*)
+[gazebo-1] #6    Object "/opt/ros/jazzy/opt/gz_ogre_next_vendor/lib/OGRE-Next/RenderSystem_GL3Plus.so", at 0x7d96ab5a4226, in 
+[gazebo-1] #5    Object "/lib/x86_64-linux-gnu/libEGL_mesa.so.0", at 0x7d96ab3ab9a7, in 
+[gazebo-1] #4    Object "/lib/x86_64-linux-gnu/libEGL_mesa.so.0", at 0x7d96ab3bbf77, in 
+[gazebo-1] #3    Object "/lib/x86_64-linux-gnu/libEGL_mesa.so.0", at 0x7d96ab3bccd8, in 
+[gazebo-1] #2    Object "/lib/x86_64-linux-gnu/libEGL_mesa.so.0", at 0x7d96ab3bb708, in 
+[gazebo-1] #1    Object "/lib/x86_64-linux-gnu/libgallium-25.2.8-0ubuntu0.24.04.1.so", at 0x7d96a66f4db4, in driCreateNewScreen3
+[gazebo-1] #0    Object "/lib/x86_64-linux-gnu/libgallium-25.2.8-0ubuntu0.24.04.1.so", at 0x7d96a66f9c2f, in 
+[gazebo-1] Segmentation fault (Address not mapped to object [0x8])
+[gazebo-1] Segmentation fault (core dumped)
+[ERROR] [gazebo-1]: process has died [pid 157444, exit code 139, cmd 'ruby /opt/ros/jazzy/opt/gz_tools_vendor/bin/gz sim -r -s "/home/abc/Orin_src/install/robot_gazebo/share/robot_gazebo/worlds/robocup_home.sdf" --force-version 8'].
+[INFO] [1778216612.750458819] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1778216612.750497979] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
+[INFO] [1778216612.789118483] [rviz2]: Stereo is NOT SUPPORTED
+[INFO] [1778216613.863283191] [SlamToolboxPlugin]: Waiting for the slam_toolbox node configuration.
+[INFO] [1778216618.863998485] [SlamToolboxPlugin]: Waiting for the slam_toolbox node configuration.
