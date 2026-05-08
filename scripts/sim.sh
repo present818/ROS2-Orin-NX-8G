@@ -114,6 +114,7 @@ ros2 launch robot_gazebo worlds.launch.py \
   world_name:="${WORLD_NAME}" \
   gui:="${GUI_MODE}" \
   nav:="${NAV_BRIDGE_MODE}" \
+  publish_static_map_to_odom:="${NAV_BRIDGE_MODE}" \
   machine_type:="${MACHINE_TYPE}" &
 GAZEBO_PID=$!
 

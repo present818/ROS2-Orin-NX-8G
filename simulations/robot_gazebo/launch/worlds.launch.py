@@ -12,6 +12,9 @@ def launch_setup(context):
     use_sim_time = LaunchConfiguration('use_sim_time', default='true').perform(context)
     world_name = LaunchConfiguration('world_name', default='empty').perform(context)
     nav = LaunchConfiguration('nav', default='false').perform(context)
+    publish_static_map_to_odom = LaunchConfiguration(
+        'publish_static_map_to_odom',
+        default='false').perform(context)
     moveit_unite = LaunchConfiguration('moveit_unite', default='false').perform(context)
     machine_type = LaunchConfiguration('machine_type', default='ROSOrin_Mecanum').perform(context)
     gui = LaunchConfiguration('gui', default='true').perform(context)
@@ -21,6 +24,9 @@ def launch_setup(context):
     machine_type_arg = DeclareLaunchArgument('machine_type', default_value=machine_type)
     gui_arg = DeclareLaunchArgument('gui', default_value=gui)
     nav_arg = DeclareLaunchArgument('nav',default_value=nav)
+    publish_static_map_to_odom_arg = DeclareLaunchArgument(
+        'publish_static_map_to_odom',
+        default_value=publish_static_map_to_odom)
     use_sim_time_arg = DeclareLaunchArgument('use_sim_time',default_value=use_sim_time)
     world_name_arg = DeclareLaunchArgument('world_name',default_value=world_name)
 
@@ -53,6 +59,7 @@ def launch_setup(context):
         launch_arguments={
             'use_sim_time': use_sim_time,
             'nav': nav,
+            'publish_static_map_to_odom': publish_static_map_to_odom,
         }.items(),
     )
 
@@ -73,6 +80,7 @@ def launch_setup(context):
         use_sim_time_arg,
         world_name_arg,
         nav_arg,
+        publish_static_map_to_odom_arg,
         moveit_unite_arg,
         machine_type_arg,
         gui_arg,
