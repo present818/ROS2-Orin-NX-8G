@@ -2,19 +2,19 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PKG_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
-WS_ROOT="$(cd "${PKG_DIR}/../../.." && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+WS_ROOT="${WS_ROOT:-${REPO_ROOT}}"
 
 WORLD_NAME="${WORLD_NAME:-robocup_home}"
 GUI_MODE="${GUI_MODE:-false}"
 MACHINE_TYPE_VALUE="${MACHINE_TYPE_VALUE:-ROSOrin_Mecanum}"
-RVIZ_CONFIG="${RVIZ_CONFIG:-${PKG_DIR}/rviz/nav_nav2.rviz}"
+RVIZ_CONFIG="${RVIZ_CONFIG:-${WS_ROOT}/simulations/robot_gazebo/rviz/nav_nav2.rviz}"
 RVIZ_DELAY="${RVIZ_DELAY:-5}"
 QT_FONT_DPI_VALUE="${QT_FONT_DPI_VALUE:-144}"
 
 if [[ ! -f "${WS_ROOT}/install/setup.bash" ]]; then
   echo "Workspace not built yet: ${WS_ROOT}/install/setup.bash not found"
-  echo "Run: cd \"${WS_ROOT}\" && colcon build --symlink-install --base-paths src/simulations"
+  echo "Run: cd \"${WS_ROOT}\" && colcon build --symlink-install --packages-up-to robot_gazebo"
   exit 1
 fi
 
