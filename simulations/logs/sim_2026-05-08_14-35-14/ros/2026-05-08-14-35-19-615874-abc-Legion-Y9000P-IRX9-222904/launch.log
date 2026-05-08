@@ -1,4 +1,0 @@
-1778222119.6163640 [INFO] [launch]: All log files can be found below /home/abc/Orin_src/simulations/logs/sim_2026-05-08_14-35-14/ros/2026-05-08-14-35-19-615874-abc-Legion-Y9000P-IRX9-222904
-1778222119.6164465 [INFO] [launch]: Default logging verbosity is set to INFO
-1778222119.6564696 [INFO] [sync_slam_toolbox_node-1]: process started with pid [222907]
-1778222119.6565402 [INFO] [rviz2-2]: process started with pid [222908]

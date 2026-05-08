@@ -1,6 +1,0 @@
-[INFO] [1778222119.945852910] [rviz2]: Stereo is NOT SUPPORTED
-[INFO] [1778222119.945894456] [rviz2]: OpenGl version: 4.6 (GLSL 4.6)
-[INFO] [1778222119.977276718] [rviz2]: Stereo is NOT SUPPORTED
-[INFO] [1778222120.036391156] [SlamToolboxPlugin]: Waiting for the slam_toolbox node configuration.
-[INFO] [1778222126.031198881] [SlamToolboxPlugin]: Waiting for the slam_toolbox node configuration.
-[INFO] [1778222128.557650101] [rclcpp]: signal_handler(SIGINT/SIGTERM)
