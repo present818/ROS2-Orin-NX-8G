@@ -13,8 +13,10 @@ def launch_setup(context):
     world_name = LaunchConfiguration('world_name', default='world_name').perform(context)
     nav = LaunchConfiguration('nav', default='false').perform(context)
     machine_type = LaunchConfiguration('machine_type', default='ROSOrin_Mecanum').perform(context)
+    gui = LaunchConfiguration('gui', default='true').perform(context)
 
     nav_arg = DeclareLaunchArgument('nav',default_value=nav)
+    gui_arg = DeclareLaunchArgument('gui', default_value=gui)
     use_sim_time_arg = DeclareLaunchArgument('use_sim_time',default_value=use_sim_time)
     world_name_arg = DeclareLaunchArgument('world_name',default_value=world_name)
     machine_type_arg = DeclareLaunchArgument('machine_type', default_value=machine_type)
@@ -24,11 +26,12 @@ def launch_setup(context):
 
 
     world = os.path.join(robot_gazebo_path,"worlds", "robocup_home.sdf")
+    gz_args = f'-r "{world}"' if gui == 'true' else f'-r -s "{world}"'
     gz_sim = IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 [os.path.join(get_package_share_directory('ros_gz_sim'),
                 'launch', 'gz_sim.launch.py')]),
-                launch_arguments=[('ign_args', [' -r ' + world])])
+                launch_arguments=[('gz_args', gz_args)])
     
 
     ros_gz_bridge_launch = IncludeLaunchDescription(
@@ -65,6 +68,7 @@ def launch_setup(context):
         world_name_arg,
         machine_type_arg,
         nav_arg,
+        gui_arg,
         SetEnvironmentVariable('MACHINE_TYPE', machine_type),
         gz_sim,
         spawn_objects_launch,

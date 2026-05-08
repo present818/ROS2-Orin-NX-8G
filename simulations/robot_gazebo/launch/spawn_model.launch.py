@@ -29,8 +29,9 @@ def launch_setup(context):
     xacro_file = os.path.join(robot_gazebo_path, 'urdf', 'robot.gazebo.xacro')
     robot_description_content = Command(
         [
-            'xacro ', os.path.join(xacro_file),
-            ' sim_ign:=', sim_ign
+            'xacro "',
+            xacro_file,
+            '" sim_ign:=', sim_ign
         ]
     )
 
