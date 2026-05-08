@@ -114,18 +114,18 @@ controller_server:
       debug_trajectory_details: True
       min_vel_x: 0.0
       min_vel_y: 0.0
-      max_vel_x: 0.5
+      max_vel_x: 0.5        # 局部规划器允许的最大前进线速度，单位 m/s
       max_vel_y: 0.0
-      max_vel_theta: 1.2
+      max_vel_theta: 1.2    # 局部规划器允许的最大角速度，单位 rad/s
       min_speed_xy: 0.0
-      max_speed_xy: 0.5
+      max_speed_xy: 0.5     # 局部规划器允许的最大平面合速度，单位 m/s；差速车通常和 max_vel_x 保持一致
       min_speed_theta: 0.0
-      acc_lim_x: 3.0
+      acc_lim_x: 3.0        # 前进方向最大加速度，单位 m/s^2；越大起步越猛
       acc_lim_y: 0.0
-      acc_lim_theta: 3.5
-      decel_lim_x: -3.0
+      acc_lim_theta: 3.5    # 最大角加速度，单位 rad/s^2；越大转向提速越快
+      decel_lim_x: -3.0     # 前进方向最大减速度，单位 m/s^2；负数，绝对值越大刹车越急
       decel_lim_y: 0.0
-      decel_lim_theta: -3.5
+      decel_lim_theta: -3.5 # 最大角减速度，单位 rad/s^2；负数，绝对值越大停止旋转越快
       vx_samples: 20
       vy_samples: 5
       vtheta_samples: 20
@@ -307,10 +307,10 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: False
     feedback: "OPEN_LOOP"
-    max_velocity: [0.4, 0.0, 1.2]
-    min_velocity: [-0.4, 0.0, -1.2]
-    max_accel: [3.0, 0.0, 3.5]
-    max_decel: [-3.0, 0.0, -3.5]
+    max_velocity: [0.4, 0.0, 1.2]   # 最终输出速度上限 [x线速度 m/s, y线速度 m/s, 角速度 rad/s]；这里会真正卡住发给 Gazebo 的 /cmd_vel
+    min_velocity: [-0.4, 0.0, -1.2] # 最终输出速度下限 [x线速度 m/s, y线速度 m/s, 角速度 rad/s]；负 x 代表允许倒车
+    max_accel: [3.0, 0.0, 3.5]      # 最终输出最大加速度 [x m/s^2, y m/s^2, theta rad/s^2]
+    max_decel: [-3.0, 0.0, -3.5]    # 最终输出最大减速度 [x m/s^2, y m/s^2, theta rad/s^2]；负数，绝对值越大减速越快
     odom_topic: "odom"
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]
