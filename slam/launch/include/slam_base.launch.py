@@ -30,7 +30,7 @@ def launch_setup(context):
         # 这句话不是在获取slam这个玩意的路径吗，那和else下面的有啥区别，不是一个东西吗？
         slam_package_path = get_package_share_directory('slam')
     else:
-        slam_package_path = '/home/ubuntu/ros2_ws/src/slam'
+        slam_package_path = '/home/ubuntu/ros2_ws/slam'
 
     slam_params = RewrittenYaml(
         source_file=os.path.join(slam_package_path, 'config/slam.yaml'),
@@ -84,5 +84,4 @@ if __name__ == '__main__':
     ls = LaunchService()
     ls.include_launch_description(ld)
     ls.run()
-
 

@@ -31,7 +31,7 @@ def launch_setup(context):
     if compiled == 'True':
         slam_package_path = get_package_share_directory('slam')
     else:
-        slam_package_path = '/home/ubuntu/ros2_ws/src/slam'
+        slam_package_path = '/home/ubuntu/ros2_ws/slam'
 
     base_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -77,4 +77,3 @@ if __name__ == '__main__':
     ls = LaunchService()
     ls.include_launch_description(ld)
     ls.run()
-

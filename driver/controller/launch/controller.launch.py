@@ -36,9 +36,9 @@ def launch_setup(context):
         controller_package_path = get_package_share_directory('controller')
         servo_controller_package_path = get_package_share_directory('servo_controller')
     else:
-        peripherals_package_path = '/home/ubuntu/ros2_ws/src/peripherals'
-        controller_package_path = '/home/ubuntu/ros2_ws/src/driver/controller'
-        servo_controller_package_path = '/home/ubuntu/ros2_ws/src/driver/servo_controller'
+        peripherals_package_path = '/home/ubuntu/ros2_ws/peripherals'
+        controller_package_path = '/home/ubuntu/ros2_ws/driver/controller'
+        servo_controller_package_path = '/home/ubuntu/ros2_ws/driver/servo_controller'
 
 
     odom_publisher_launch = IncludeLaunchDescription(

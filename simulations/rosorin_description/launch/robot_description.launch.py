@@ -27,7 +27,7 @@ def generate_launch_description():
     if compiled == 'True':
         rosorin_description_package_path = get_package_share_directory('rosorin_description')
     else:
-        rosorin_description_package_path = '/home/ubuntu/ros2_ws/src/simulations/rosorin_description'
+        rosorin_description_package_path = '/home/ubuntu/ros2_ws/simulations/rosorin_description'
     urdf_path = os.path.join(rosorin_description_package_path, 'urdf/rosorin.xacro')
     rviz_config_file = os.path.join(rosorin_description_package_path, 'rviz/view.rviz')
 
