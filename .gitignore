@@ -15,10 +15,12 @@ log/
 
 # Large model artifacts that exceed GitHub's file size limit
 *.pt
+_dedupe_backup_outer_packages/
 *.wts
 
 # Backup of nested repository metadata after flattening
 large_models/.git.bak/
+src/large_models/.git.bak/
 __pycache__
 *.py[cod]
 *$py.class
