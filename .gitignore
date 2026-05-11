@@ -1,4 +1,24 @@
-<<<<<<< HEAD
+models/
+simulations/logs/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# ROS build outputs
+build/
+install/
+log/
+
+# Workspace-local editor data
+.vscode/
+
+# Large model artifacts that exceed GitHub's file size limit
+*.pt
+*.wts
+
+# Backup of nested repository metadata after flattening
+large_models/.git.bak/
 __pycache__
 *.py[cod]
 *$py.class
@@ -58,26 +78,3 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
-=======
-models/
-simulations/logs/
-
-# Python cache
-__pycache__/
-*.py[cod]
-
-# ROS build outputs
-build/
-install/
-log/
-
-# Workspace-local editor data
-.vscode/
-
-# Large model artifacts that exceed GitHub's file size limit
-*.pt
-*.wts
-
-# Backup of nested repository metadata after flattening
-large_models/.git.bak/
->>>>>>> 6aeb4380e7135b529ac676c66743566404d0da0c
