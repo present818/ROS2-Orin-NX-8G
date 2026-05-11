@@ -1,5 +1,5 @@
 models/
-simulations/logs/
+src/simulations/logs/
 
 # Python cache
 __pycache__/
